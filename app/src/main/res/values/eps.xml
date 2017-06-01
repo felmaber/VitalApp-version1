@@ -1,0 +1,16 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+
+    <string-array name="eps">
+        <item>Seleccione su EPS</item>
+        <item>Cafesalud</item>
+        <item>Sanitas EPS</item>
+        <item>Colmedica Medicina Prepagada S.A</item>
+        <item>Asmet Salud E.P.S</item>
+        <item>SaludVida S.A EPS</item>
+        <item>Nueva EPS</item>
+        <item>Coomeva EPS</item>
+        <item>EPS Sura</item>
+        <item>EPS Comfenalco</item>
+    </string-array>
+</resources>

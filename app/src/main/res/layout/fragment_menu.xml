@@ -1,0 +1,75 @@
+<FrameLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    tools:context="juliethosorio.vitalapp.MenuFragment">
+<LinearLayout
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:orientation="vertical"
+    android:layout_gravity="center">
+
+    <ImageView
+        android:layout_width="100dp"
+        android:layout_height="100dp"
+        android:src="@drawable/logo"
+        android:layout_gravity="center"/>
+
+    <TextView
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:text="VitalApp"
+        android:textAlignment="center"
+        android:textSize="26sp"
+        android:textColor="#1C1C1C"
+        android:layout_marginBottom="10dp"/>
+
+    <GridLayout
+        android:id="@+id/gridMenu"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:rowCount="2"
+        android:columnCount="2"
+        android:layout_gravity="center"
+        android:visibility="visible">
+
+        <ImageButton
+            android:id="@+id/btnCrearQR"
+            android:layout_width="120dp"
+            android:layout_height="120dp"
+            android:background="@color/colorAccent"
+            android:src="@drawable/qr2"
+            android:onClick="onClick"/>
+
+        <ImageButton
+            android:id="@+id/btnGrupos"
+            android:layout_width="120dp"
+            android:layout_height="120dp"
+            android:background="@color/colorAccent"
+            android:layout_marginBottom="10dp"
+            android:layout_marginLeft="10dp"
+            android:src="@drawable/grupo"
+            android:onClick="onClick"/>
+
+        <ImageButton
+            android:id="@+id/btnDependiente"
+            android:layout_width="120dp"
+            android:layout_height="120dp"
+            android:background="@color/colorAccent"
+            android:src="@drawable/especial"
+            android:onClick="onClick"/>
+
+        <ImageButton
+            android:id="@+id/btnCompras"
+            android:layout_width="120dp"
+            android:layout_height="120dp"
+            android:background="@color/colorAccent"
+            android:layout_marginLeft="10dp"
+            android:src="@drawable/compras2"
+            android:onClick="onClick"/>
+
+    </GridLayout>
+
+</LinearLayout>
+
+</FrameLayout>

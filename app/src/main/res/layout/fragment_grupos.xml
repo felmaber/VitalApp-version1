@@ -1,0 +1,64 @@
+<FrameLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    tools:context="juliethosorio.vitalapp.GruposFragment">
+
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:orientation="vertical">
+
+        <GridLayout
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:rowCount="1"
+            android:columnCount="4"
+            android:layout_marginLeft="20dp"
+            android:layout_marginRight="20dp"
+            android:layout_marginTop="5dp">
+
+            <ImageButton
+                android:id="@+id/btnVerGrupoDependiente"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:src="@drawable/grupo1"
+                android:background="@null"/>
+
+            <ImageButton
+                android:id="@+id/btnVerNotificacion"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:src="@drawable/notification"
+                android:layout_marginLeft="20dp"
+                android:background="@null"/>
+
+            <ImageButton
+                android:id="@+id/btnEliminar"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:src="@drawable/eliminar"
+                android:layout_marginLeft="20dp"
+                android:background="@null"/>
+
+            <ImageButton
+                android:id="@+id/btnEditar"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:src="@drawable/editar1"
+                android:layout_marginLeft="20dp"
+                android:background="@null"/>
+
+        </GridLayout>
+
+        <android.support.v7.widget.RecyclerView
+            android:id="@+id/RVGrupos"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:visibility="visible"
+            android:layout_marginBottom="40dp"
+            android:padding="10dp"/>
+
+    </LinearLayout>
+
+</FrameLayout>

@@ -1,0 +1,33 @@
+<resources>
+    <string name="app_name">VitalApp</string>
+    <string name="title_activity_login">Login</string>
+    <string name="title_activity_registro_usuario">RegistroUsuarioActivity</string>
+    <string name="title_activity_menu_principal">MenuPrincipal</string>
+
+    <string name="navigation_drawer_open">Open navigation drawer</string>
+    <string name="navigation_drawer_close">Close navigation drawer</string>
+
+    <string name="action_settings">Settings</string>
+    <string name="title_activity_menu_inicio">MenuInicio</string>
+    <string name="Registrarse"><u>Registrarse</u></string>
+    <string name="OlvidarContraseña"><u>Olvido Contraseña</u></string>
+    <string name="title_activity_menu">MenuActivity</string>
+
+    <!-- TODO: Remove or change this placeholder text -->
+    <string name="hello_blank_fragment">Hello blank fragment</string>
+    <string name="title_activity_registro_dependiente">RegistroDependienteActivity</string>
+    <string name="title_activity_grupos">GruposActivity</string>
+    <string name="title_activity_prueba">prueba</string>
+    <string name="title_activity_menu_">Menu_Activity</string>
+    <string name="title_activity_gestion__grupo_">Gestion_Grupo_Activity</string>
+    <string name="title_activity_registro__dependiente_">Registro_Dependiente_Activity</string>
+    <string name="title_activity_registro_usuario_dependiente">RegistroUsuarioDependienteActivity
+    </string>
+    <string name="title_activity_registro_dependientes">RegistroDependientesActivity</string>
+    <string name="title_activity_lista_dependientes">ListaDependientesActivity</string>
+    <string name="title_activity_recorrido_app">RecorridoAppActivity</string>
+    <string name="section_format">Hello World from section: %1$d</string>
+    <string name="title_activity_recorrido">RecorridoActivity</string>
+    <string name="title_activity_mi_recorrido">MiRecorridoActivity</string>
+    <string name="title_activity_tienda_vital">TiendaVitalActivity</string>
+</resources>

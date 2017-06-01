@@ -1,0 +1,76 @@
+<FrameLayout
+    xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    tools:context="juliethosorio.vitalapp.Historial_IncidenciasFragment">
+
+<LinearLayout
+    android:layout_width="match_parent"
+    android:layout_height="wrap_content"
+    android:orientation="vertical">
+    <GridLayout
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:rowCount="1"
+        android:columnCount="4"
+        android:layout_gravity="center">
+
+        <ImageButton
+            android:id="@+id/btnMenuQR"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:src="@drawable/qr1"
+            android:background="@null"
+            android:layout_marginLeft="30dp"
+            android:layout_marginRight="30dp"
+            android:layout_marginTop="10dp"
+            android:onClick="onClick"/>
+
+        <ImageButton
+            android:id="@+id/btnMenuGrupos"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:src="@drawable/grupo1"
+            android:background="@null"
+            android:layout_marginLeft="20dp"
+            android:layout_marginRight="30dp"
+            android:layout_marginTop="10dp"
+            android:onClick="onClick"/>
+
+        <ImageButton
+            android:id="@+id/btnMenuDependiente"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:src="@drawable/especial1"
+            android:background="@null"
+            android:layout_marginLeft="20dp"
+            android:layout_marginRight="30dp"
+            android:layout_marginTop="10dp"
+            android:onClick="onClick"/>
+
+        <ImageButton
+            android:id="@+id/btnMenuCompras"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:src="@drawable/compras1"
+            android:background="@null"
+            android:layout_marginLeft="20dp"
+            android:layout_marginRight="30dp"
+            android:layout_marginTop="10dp"
+            android:onClick="onClick"/>
+
+    </GridLayout>
+
+    <android.support.v7.widget.RecyclerView
+    android:id="@+id/RVincidencias"
+    android:layout_width="match_parent"
+    android:layout_height="wrap_content"
+    android:visibility="visible"
+    android:layout_marginBottom="40dp"
+    android:padding="10dp"/>
+
+</LinearLayout>
+
+
+</FrameLayout>

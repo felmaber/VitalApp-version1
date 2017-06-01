@@ -1,0 +1,27 @@
+<?xml version="1.0" encoding="utf-8"?>
+<menu xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    tools:context=".RegistroUsuarioActivity">
+
+    <item android:id="@+id/perfil"
+        android:title="Mi Perfil"
+        android:orderInCategory="100"
+        app:showAsAction="never"/>
+    <item android:id="@+id/profesional"
+        android:title="Profesional Salud"
+        android:orderInCategory="200"
+        app:showAsAction="never"/>
+    <item android:id="@+id/historial"
+        android:title="Historial Incidencias"
+        android:orderInCategory="300"
+        app:showAsAction="never"/>
+    <item android:id="@+id/configuracion"
+        android:title="Configuracion"
+        android:orderInCategory="300"
+        app:showAsAction="never"/>
+    <item android:id="@+id/compartir"
+        android:title="Compartir"
+        android:orderInCategory="300"
+        app:showAsAction="never"/>
+</menu>

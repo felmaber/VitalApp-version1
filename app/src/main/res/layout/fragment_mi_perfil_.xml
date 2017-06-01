@@ -1,0 +1,216 @@
+<FrameLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    tools:context="juliethosorio.vitalapp.MiPerfil_Fragment">
+
+    <LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+        xmlns:tools="http://schemas.android.com/tools"
+        android:id="@+id/activity_registro_usuario"
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:orientation="vertical"
+        tools:context="juliethosorio.vitalapp.RegistroUsuarioActivity">
+        <GridLayout
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:rowCount="1"
+            android:columnCount="4"
+            android:layout_gravity="center">
+
+            <ImageButton
+                android:id="@+id/btnMenuQR"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:src="@drawable/qr1"
+                android:background="@null"
+                android:layout_marginLeft="30dp"
+                android:layout_marginRight="30dp"
+                android:layout_marginTop="10dp"
+                android:onClick="onClick"/>
+
+            <ImageButton
+                android:id="@+id/btnMenuGrupos"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:src="@drawable/grupo1"
+                android:background="@null"
+                android:layout_marginLeft="20dp"
+                android:layout_marginRight="30dp"
+                android:layout_marginTop="10dp"
+                android:onClick="onClick"/>
+
+            <ImageButton
+                android:id="@+id/btnMenuDependiente"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:src="@drawable/especial1"
+                android:background="@null"
+                android:layout_marginLeft="20dp"
+                android:layout_marginRight="30dp"
+                android:layout_marginTop="10dp"
+                android:onClick="onClick"/>
+
+            <ImageButton
+                android:id="@+id/btnMenuCompras"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:src="@drawable/compras1"
+                android:background="@null"
+                android:layout_marginLeft="20dp"
+                android:layout_marginRight="30dp"
+                android:layout_marginTop="10dp"
+                android:onClick="onClick"/>
+
+        </GridLayout>
+        <ImageView
+            android:layout_width="50dp"
+            android:layout_height="50dp"
+            android:src="@drawable/logo"
+            android:layout_gravity="center"
+            android:layout_marginTop="20dp"/>
+        <TextView
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:text="Mi Perfil"
+            android:textAlignment="center"
+            android:textSize="20sp"
+            android:textColor="#1C1C1C"
+            android:layout_marginBottom="30dp"/>
+
+        <ScrollView
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content">
+            <LinearLayout
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:orientation="vertical">
+
+                <GridLayout
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:rowCount="2"
+                    android:columnCount="2"
+                    android:visibility="visible">
+
+
+                <TextView
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:text="Identificacion:"
+                    android:textStyle="bold"/>
+
+                <EditText
+                    android:id="@+id/campoIdPerfil"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"/>
+
+                <TextView
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:text="Nombre Completo:"
+                    android:textStyle="bold"/>
+
+                <EditText
+                    android:id="@+id/campoNombresPerfil"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"/>
+
+                <TextView
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:text="Fecha de Nacimiento:"
+                    android:textStyle="bold"/>
+
+                <EditText
+                    android:id="@+id/campoFechaNacimientoPerfil"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:inputType="date"/>
+
+                <TextView
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:text="Tipo de Sangre:"
+                    android:textStyle="bold"/>
+
+                <EditText
+                    android:id="@+id/campotipoSangrePerfil"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content">
+                </EditText>
+
+                <TextView
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:text="EPS:"
+                    android:textStyle="bold"/>
+
+                <EditText
+                    android:id="@+id/campoEPSperfil"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content">
+                </EditText>
+
+                <TextView
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:text="Correo Electronico:"
+                    android:textStyle="bold"/>
+
+                <EditText
+                    android:id="@+id/campoCorreoPerfil"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"/>
+
+                <TextView
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:text="Telefono:"
+                    android:textStyle="bold"/>
+
+                <EditText
+                    android:id="@+id/campotelefonoPerfil"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"/>
+
+                <TextView
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:text="Direccion:"
+                    android:textStyle="bold"/>
+
+                <EditText
+                    android:id="@+id/campoDireccionPerfil"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"/>
+
+                <TextView
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:text="Contacto de Emergencia"
+                    android:textStyle="bold"/>
+
+                <EditText
+                    android:id="@+id/campoContactoPerfil"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"/>
+
+                <TextView
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:text="Telefono Contacto:"
+                    android:textStyle="bold"/>
+
+                <EditText
+                    android:id="@+id/campotelContactoPerfil"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"/>
+
+            </GridLayout>
+            </LinearLayout>
+        </ScrollView>
+
+    </LinearLayout>
+
+</FrameLayout>

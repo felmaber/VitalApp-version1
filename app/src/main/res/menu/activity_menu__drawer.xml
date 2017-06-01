@@ -1,0 +1,35 @@
+<?xml version="1.0" encoding="utf-8"?>
+<menu
+    xmlns:android="http://schemas.android.com/apk/res/android">
+
+    <group android:checkableBehavior="all">
+        <item
+            android:id="@+id/miPerfil"
+            android:icon="@drawable/perfil"
+            android:title="Mi Perfil" />
+        <item
+            android:id="@+id/profesionalSalud"
+            android:icon="@drawable/profesalud"
+            android:title="Profesional de la Salud" />
+        <item
+            android:id="@+id/historialIncidencias"
+            android:icon="@drawable/historial"
+            android:title="Historial de Incidencias" />
+        <item
+            android:id="@+id/configuracion"
+            android:icon="@drawable/btnconfigurar"
+            android:title="Configuracion" />
+
+    </group>
+
+    <item android:title="Communicate">
+        <menu>
+            <item
+                android:id="@+id/compartir"
+                android:icon="@drawable/compartir"
+                android:title="Compartir" />
+
+        </menu>
+    </item>
+
+</menu>

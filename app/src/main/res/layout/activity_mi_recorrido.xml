@@ -1,0 +1,59 @@
+<?xml version="1.0" encoding="utf-8"?>
+<android.support.design.widget.CoordinatorLayout
+    xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    xmlns:fab="http://schemas.android.com/apk/res-auto"
+    android:id="@+id/main_content"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:fitsSystemWindows="true"
+    tools:context="juliethosorio.vitalapp.MiRecorridoActivity">
+
+    <android.support.v4.view.ViewPager
+        android:id="@+id/container"
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        app:layout_behavior="@string/appbar_scrolling_view_behavior" />
+
+    <com.getbase.floatingactionbutton.FloatingActionsMenu
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:id="@+id/fbmultiple"
+        android:clickable="true"
+        app:srcCompat="@drawable/logo"
+        android:layout_margin="16dp"
+        fab:fab_addButtonSize="mini"
+        android:layout_gravity="end|bottom"
+        fab:fab_addButtonColorNormal="?attr/colorPrimary">
+
+        <com.getbase.floatingactionbutton.FloatingActionButton
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:id="@+id/btnQRsplash"
+            fab:fab_icon="@drawable/qr"
+            app:fabSize="mini"
+            fab:fab_colorNormal="#2ECCFA"
+            fab:fab_title="Leer QR"/>
+
+        <com.getbase.floatingactionbutton.FloatingActionButton
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:id="@+id/llamarContactosplash"
+            fab:fab_icon="@drawable/tel"
+            app:fabSize="mini"
+            fab:fab_colorNormal="#BEF781"
+            fab:fab_title="Llamar Contacto"/>
+
+        <com.getbase.floatingactionbutton.FloatingActionButton
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:id="@+id/llamadaEmergencia"
+            fab:fab_icon="@drawable/emergencia"
+            app:fabSize="mini"
+            fab:fab_colorNormal="#FE2E2E"
+            fab:fab_title="Llamar Emergencias"/>
+
+    </com.getbase.floatingactionbutton.FloatingActionsMenu>
+
+</android.support.design.widget.CoordinatorLayout>

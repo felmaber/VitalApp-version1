@@ -1,0 +1,217 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:id="@+id/content_registro_dependientes"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:paddingLeft="10dp"
+    android:paddingRight="10dp"
+    android:orientation="vertical"
+    app:layout_behavior="@string/appbar_scrolling_view_behavior"
+    tools:context="juliethosorio.vitalapp.RegistroDependientesActivity"
+    tools:showIn="@layout/activity_registro_dependientes">
+
+    <ImageView
+        android:layout_width="50dp"
+        android:layout_height="50dp"
+        android:src="@drawable/logo"
+        android:layout_gravity="center"
+        android:layout_marginTop="5dp"/>
+    <TextView
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:text="Registro Usuario Dependiente"
+        android:textAlignment="center"
+        android:textSize="20sp"
+        android:textColor="#1C1C1C"
+        android:layout_marginBottom="30dp"/>
+
+    <ScrollView
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_marginTop="20dp">
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:orientation="vertical">
+
+            <TextView
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:text="Datos Personales"
+                android:textSize="18sp"
+                android:textStyle="bold"/>
+
+            <EditText
+                android:id="@+id/campoId"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:hint="Identificacion"/>
+
+            <EditText
+                android:id="@+id/campoNombres"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:hint="Nombre Completo"/>
+
+            <LinearLayout
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:orientation="horizontal">
+
+                <EditText
+                    android:id="@+id/campoFechaNacimiento"
+                    android:layout_width="200dp"
+                    android:layout_height="wrap_content"
+                    android:hint="Fecha de Nacimiento"
+                    android:inputType="date"/>
+                <Button
+                    android:id="@+id/btnfecha"
+                    android:layout_width="40dp"
+                    android:layout_height="30dp"
+                    android:drawableBottom="@drawable/calendario"
+                    android:background="@null"
+                    android:layout_gravity="center"
+                    android:onClick="mostrarCalendario"/>
+            </LinearLayout>
+
+            <LinearLayout
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:orientation="vertical">
+
+                <Spinner
+                    android:id="@+id/campotipoSangre"
+                    android:layout_width="match_parent"
+                    android:layout_marginTop="10dp"
+                    android:layout_height="wrap_content">
+                </Spinner>
+
+                <Spinner
+                    android:id="@+id/cbEps"
+                    android:layout_width="match_parent"
+                    android:layout_marginTop="10dp"
+                    android:layout_height="wrap_content">
+                </Spinner>
+            </LinearLayout>
+
+            <EditText
+                android:id="@+id/campoCorreo"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:hint="Correo Electronico"/>
+            <EditText
+                android:id="@+id/campotelefono"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:hint="Telefono"/>
+
+            <EditText
+                android:id="@+id/campoDireccion"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:hint="Direccion"/>
+
+            <GridLayout
+                android:id="@+id/GridcondicionMedica"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:rowCount="2"
+                android:columnCount="1"
+                android:visibility="visible"
+                android:layout_marginTop="40dp">
+
+
+                <TextView
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:text="Informacion Medica"
+                    android:textStyle="bold"
+                    android:textSize="18sp"/>
+
+                <EditText
+                    android:id="@+id/campoCondicion"
+                    android:layout_height="wrap_content"
+                    android:layout_width="match_parent"
+                    android:hint="Condicion especial"/>
+
+                <EditText
+                    android:id="@+id/campoEnfermedad"
+                    android:layout_height="wrap_content"
+                    android:layout_width="match_parent"
+                    android:hint="Enfermedad Critica"/>
+
+                <EditText
+                    android:id="@+id/campoMedicamentos"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:hint="Medicamentos referentes a la enfermedad"
+                    android:inputType="textMultiLine"
+                    android:ems="10"
+                    />
+                <LinearLayout
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:orientation="horizontal"
+                    >
+                    <Button
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:text="Agregar"
+                        android:id="@+id/btnAgregar"
+                        android:layout_marginLeft="70dp"
+                        android:onClick="mostrarLista"/>
+                    <Button
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:text="Salir"
+                        android:id="@+id/btnSalir"
+                        android:layout_marginLeft="20dp"
+                        android:onClick="mostrarLista"/>
+
+                </LinearLayout>
+                <GridLayout
+                    android:id="@+id/GridAgregar"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:rowCount="2"
+                    android:columnCount="1"
+                    android:visibility="gone"
+                    android:layout_marginTop="40dp">
+
+                    <View
+                        android:layout_width="fill_parent"
+                        android:layout_height="1dp"
+                        android:background="#000000"/>
+
+                    <android.support.v7.widget.RecyclerView
+                        android:id="@+id/RListaCondiciones"
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"
+                        android:layout_weight="0.41"
+                        android:visibility="gone"
+                        android:layout_marginBottom="20dp"/>
+
+                    <View
+                        android:layout_width="fill_parent"
+                        android:layout_height="1dp"
+                        android:background="#000000"/>
+                </GridLayout>
+
+
+            </GridLayout>
+
+            <Button
+                android:id="@+id/btnRegistrar"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_gravity="center"
+                android:text="guardar"
+                android:layout_marginTop="20dp"
+                android:onClick="onClick"/>
+
+        </LinearLayout>
+    </ScrollView>
+
+</LinearLayout>

@@ -1,0 +1,27 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+
+    <string-array name="especialidad">
+        <item>Seleccione su Especialidad</item>
+        <item>Auxiliar de enfermería</item>
+        <item>Cardiología</item>
+        <item>Cirugia General</item>
+        <item>Endocrinología</item>
+        <item>Enfermeria</item>
+        <item>Geriatría</item>
+        <item>Hematología</item>
+        <item>Infectología</item>
+        <item>Medicina Interna</item>
+        <item>Medicina Critica y Cuidado Intensivo</item>
+        <item>Medicina General</item>
+        <item>Nefrología</item>
+        <item>Neumología</item>
+        <item>Neurología</item>
+        <item>Oncología</item>
+        <item>Pediatría</item>
+        <item>Psiquiatría</item>
+        <item>Traumatología y Ortopedia</item>
+        <item>Urologia</item>
+        <item>Rehabilitacion</item>
+    </string-array>
+</resources>
