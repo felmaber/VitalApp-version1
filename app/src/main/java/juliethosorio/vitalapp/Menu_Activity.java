@@ -124,10 +124,8 @@ public class Menu_Activity extends AppCompatActivity implements NavigationView.O
         //String idPerfil=getIntent().getStringExtra("id");
 
         if (id == R.id.miPerfil) {
-            Intent miperfil=new Intent(this,Mi_PerfilActivity.class);
-            Bundle bundle= getIntent().getExtras();
-            new consultarDatos().execute("http://10.0.3.2/vitalapp/consultarUsuario.php?identificacion="+bundle.getString("id"));
-            startActivity(miperfil);
+            fragmento= new MiPerfil_Fragment();
+            seleccion=true;
 
         } else if (id == R.id.profesionalSalud) {
             fragmento= new ProfesionalSaludFragment();
