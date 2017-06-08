@@ -7,7 +7,6 @@ import android.os.Bundle;
 import android.support.design.widget.FloatingActionButton;
 import android.support.design.widget.Snackbar;
 import android.support.v4.app.Fragment;
-import android.support.v4.app.FragmentTransaction;
 import android.util.Log;
 import android.view.View;
 import android.support.design.widget.NavigationView;
@@ -18,10 +17,7 @@ import android.support.v7.app.AppCompatActivity;
 import android.support.v7.widget.Toolbar;
 import android.view.Menu;
 import android.view.MenuItem;
-import android.widget.EditText;
-import android.widget.ImageButton;
 import android.widget.TextView;
-import android.widget.Toast;
 
 import org.json.JSONArray;
 import org.json.JSONException;
@@ -34,29 +30,13 @@ import java.io.UnsupportedEncodingException;
 import java.net.HttpURLConnection;
 import java.net.URL;
 
-import static juliethosorio.vitalapp.R.id.campoIdPerfil;
-
-public class Menu_Activity extends AppCompatActivity implements NavigationView.OnNavigationItemSelectedListener
-        ,MenuFragment.OnFragmentInteractionListener,MiPerfil_Fragment.OnFragmentInteractionListener,
-        ProfesionalSaludFragment.OnFragmentInteractionListener,Historial_IncidenciasFragment.OnFragmentInteractionListener {
-
-    MenuFragment menuFragment;
-    MiPerfil_Fragment miperfil;
-    ProfesionalSaludFragment miProfesionSalud;
-    Historial_IncidenciasFragment miHistorial;
-
+public class Mi_PerfilActivity extends AppCompatActivity
+        implements NavigationView.OnNavigationItemSelectedListener {
 
     @Override
-    protected void onCreate( Bundle savedInstanceState) {
+    protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
-        setContentView(R.layout.activity_menu_);
-
-        menuFragment= new MenuFragment();
-        miperfil= new MiPerfil_Fragment();
-        miProfesionSalud=new ProfesionalSaludFragment();
-        miHistorial=new Historial_IncidenciasFragment();
-
-        /*---------------------------------------------------------*/
+        setContentView(R.layout.activity_mi__perfil);
         Toolbar toolbar = (Toolbar) findViewById(R.id.toolbar);
         setSupportActionBar(toolbar);
 
@@ -77,11 +57,7 @@ public class Menu_Activity extends AppCompatActivity implements NavigationView.O
 
         NavigationView navigationView = (NavigationView) findViewById(R.id.nav_view);
         navigationView.setNavigationItemSelectedListener(this);
-
-        getSupportFragmentManager().beginTransaction().add(R.id.contenedorMenuFragments,menuFragment).commit();
-
     }
-
 
     @Override
     public void onBackPressed() {
@@ -95,7 +71,6 @@ public class Menu_Activity extends AppCompatActivity implements NavigationView.O
 
     @Override
     public boolean onCreateOptionsMenu(Menu menu) {
-
         getMenuInflater().inflate(R.menu.menu, menu);
         return true;
     }
@@ -104,7 +79,7 @@ public class Menu_Activity extends AppCompatActivity implements NavigationView.O
     public boolean onOptionsItemSelected(MenuItem item) {
         switch (item.getItemId()){
             case R.id.salir:
-               Intent irLogin= new Intent(this,LoginActivity.class);
+                Intent irLogin= new Intent(this,LoginActivity.class);
                 startActivity(irLogin);
                 break;
             case R.id.ayuda:
@@ -112,36 +87,6 @@ public class Menu_Activity extends AppCompatActivity implements NavigationView.O
             case R.id.acercaDe:
                 break;
         }
-        return true;
-    }
-
-    @SuppressWarnings("StatementWithEmptyBody")
-    @Override
-    public boolean onNavigationItemSelected(MenuItem item) {
-        Fragment fragmento=null;
-        boolean seleccion=false;
-        int id = item.getItemId();
-        //String idPerfil=getIntent().getStringExtra("id");
-
-        if (id == R.id.miPerfil) {
-            Intent miperfil=new Intent(this,Mi_PerfilActivity.class);
-            Bundle bundle= getIntent().getExtras();
-            new consultarDatos().execute("http://10.0.3.2/vitalapp/consultarUsuario.php?identificacion="+bundle.getString("id"));
-            startActivity(miperfil);
-
-        } else if (id == R.id.profesionalSalud) {
-            fragmento= new ProfesionalSaludFragment();
-            seleccion=true;
-        } else if (id == R.id.historialIncidencias) {
-            fragmento= new Historial_IncidenciasFragment();
-            seleccion=true;
-        }
-        if(seleccion){
-            getSupportFragmentManager().beginTransaction().replace(R.id.contenedorMenuFragments,fragmento).commit();
-        }
-
-        DrawerLayout drawer = (DrawerLayout) findViewById(R.id.drawer_layout);
-        drawer.closeDrawer(GravityCompat.START);
         return true;
     }
 
@@ -177,13 +122,39 @@ public class Menu_Activity extends AppCompatActivity implements NavigationView.O
         startActivity(intent);
     }
 
-    @Override
-    public void onFragmentInteraction(Uri uri) {
 
+
+    @SuppressWarnings("StatementWithEmptyBody")
+    @Override
+    public boolean onNavigationItemSelected(MenuItem item) {
+        Fragment fragmento=null;
+        boolean seleccion=false;
+        int id = item.getItemId();
+        //String idPerfil=getIntent().getStringExtra("id");
+
+        if (id == R.id.miPerfil) {
+            Intent miperfil=new Intent(this,Mi_PerfilActivity.class);
+            Bundle bundle= getIntent().getExtras();
+            new consultarDatos().execute("http://10.0.3.2/vitalapp/consultarUsuario.php?identificacion="+bundle.getString("id"));
+            startActivity(miperfil);
+
+        } else if (id == R.id.profesionalSalud) {
+            fragmento= new ProfesionalSaludFragment();
+            seleccion=true;
+        } else if (id == R.id.historialIncidencias) {
+            fragmento= new Historial_IncidenciasFragment();
+            seleccion=true;
+        }
+        if(seleccion){
+            getSupportFragmentManager().beginTransaction().replace(R.id.contenedorMenuFragments,fragmento).commit();
+        }
+
+        DrawerLayout drawer = (DrawerLayout) findViewById(R.id.drawer_layout);
+        drawer.closeDrawer(GravityCompat.START);
+        return true;
     }
 
-
-// metodo para llamar la url de conexion
+    // metodo para llamar la url de conexion
 
     private String downloadUrl(String miurl) throws IOException {
         InputStream inputStream=null;
@@ -228,6 +199,7 @@ public class Menu_Activity extends AppCompatActivity implements NavigationView.O
         }
         protected void onPostExecute(String resultado){
             JSONArray jsonArray=null;
+
             TextView id,nom,fecha,tipo,eps,correo,tel,dir,contact,telcon;
 
             id=(TextView)findViewById(R.id.campoIdPerfil);
@@ -272,5 +244,8 @@ public class Menu_Activity extends AppCompatActivity implements NavigationView.O
     }
 
 
+    public void onFragmentInteraction(Uri uri) {
+
+    }
 
 }

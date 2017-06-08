@@ -102,16 +102,15 @@
                 android:layout_height="wrap_content"
                 android:hint="Correo Electronico"/>
             <EditText
+                android:id="@+id/campodireccion"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:hint="Direccion"/>
+            <EditText
                 android:id="@+id/campotelefono"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
                 android:hint="Telefono"/>
-
-            <EditText
-                android:id="@+id/campoDireccion"
-                android:layout_width="match_parent"
-                android:layout_height="wrap_content"
-                android:hint="Direccion"/>
 
             <GridLayout
                 android:id="@+id/GridcondicionMedica"
@@ -213,5 +212,11 @@
 
         </LinearLayout>
     </ScrollView>
+
+    <EditText
+        android:id="@+id/campoDireccion"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:hint="Direccion"/>
 
 </LinearLayout>

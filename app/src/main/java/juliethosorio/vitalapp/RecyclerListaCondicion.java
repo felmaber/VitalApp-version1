@@ -1,12 +1,27 @@
 package juliethosorio.vitalapp;
 
+import android.os.AsyncTask;
 import android.support.v7.widget.RecyclerView;
+import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.EditText;
+import android.widget.Toast;
 
+import org.json.JSONArray;
+import org.json.JSONException;
+
+import java.io.IOException;
+import java.io.InputStream;
+import java.io.InputStreamReader;
+import java.io.Reader;
+import java.io.UnsupportedEncodingException;
+import java.net.HttpURLConnection;
+import java.net.URL;
 import java.util.ArrayList;
+
+import static juliethosorio.vitalapp.R.id.campoCondicionEspecial;
 
 /**
  * Created by ljoso on 22/05/2017.
@@ -57,4 +72,6 @@ public class RecyclerListaCondicion extends
             campoMedicamentos = (EditText) itemView.findViewById(R.id.campoMedicamentos);
         }
     }
+
+
 }

@@ -2,6 +2,9 @@
 <manifest xmlns:android="http://schemas.android.com/apk/res/android"
     package="juliethosorio.vitalapp">
 
+    <uses-permission android:name="android.permission.INTERNET" />
+    <uses-permission android:name="android.permission.ACCESS_NETWORK_STATE" />
+
     <application
         android:allowBackup="true"
         android:icon="@mipmap/ic_launcher"
@@ -36,7 +39,6 @@
         <activity
             android:name=".Menu_Activity"
             android:theme="@style/AppTheme.NoActionBar" />
-
         <activity
             android:name=".RegistroDependientesActivity"
             android:theme="@style/AppTheme.NoActionBar" />
@@ -51,6 +53,10 @@
             android:theme="@style/AppTheme.NoActionBar" />
         <activity
             android:name=".TiendaVitalActivity"
+            android:theme="@style/AppTheme.NoActionBar" />
+        <activity
+            android:name=".Mi_PerfilActivity"
+            android:label="@string/title_activity_mi__perfil"
             android:theme="@style/AppTheme.NoActionBar"></activity>
     </application>
 

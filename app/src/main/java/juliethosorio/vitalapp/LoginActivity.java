@@ -6,14 +6,33 @@ import android.os.Bundle;
 import android.support.design.widget.FloatingActionButton;
 import android.support.design.widget.Snackbar;
 import android.support.v7.app.AppCompatActivity;
+import android.util.Log;
 import android.view.View;
+import android.widget.EditText;
 import android.widget.TextView;
+import android.widget.Toast;
+
+import com.android.volley.Request;
+import com.android.volley.RequestQueue;
+import com.android.volley.Response;
+import com.android.volley.toolbox.StringRequest;
+import com.android.volley.toolbox.Volley;
+import com.android.volley.VolleyError;
+
+import org.json.JSONArray;
+import org.json.JSONException;
 
 public class LoginActivity extends AppCompatActivity {
+
+    JSONArray jsonArray;
+    EditText txtUsuario,txtContraseña;
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_login2);
+
+        txtUsuario=(EditText)findViewById(R.id.txtUsuario);
+        txtContraseña=(EditText)findViewById(R.id.txtContraseña);
 
         TextView createAccountText = (TextView) findViewById(R.id.txtRegistrarse);
         Resources res = getResources();
@@ -34,6 +53,8 @@ public class LoginActivity extends AppCompatActivity {
                         .setAction("Action", null).show();
             }
         });
+
+
     }
     public void onClick(View view) {
         switch (view.getId()) {
@@ -45,7 +66,61 @@ public class LoginActivity extends AppCompatActivity {
                 Intent regreso2 = new Intent(LoginActivity.this, RegistroUsuarioActivity.class);
                 startActivity(regreso2);
                 break;
+            case R.id.btnIngresar:
+                if(txtUsuario.getText().toString().equals("")&&txtContraseña.getText().toString().equals("")){
+                    Toast.makeText(getApplicationContext(),"Ingrese Usuario y Contraseña",Toast.LENGTH_SHORT).show();
+                }
+                else{
+                ConsultaPass("http://10.0.3.2/vitalapp/login.php?user="+txtUsuario.getText().toString());
+                }
+                break;
         }
+    }
+
+    private void ConsultaPass(String URL) {
+
+        Log.i("url",""+URL);
+
+        RequestQueue queue = Volley.newRequestQueue(this);
+        StringRequest stringRequest =  new StringRequest(Request.Method.GET, URL, new Response.Listener<String>() {
+            @Override
+            public void onResponse(String response) {
+
+                try {
+                    jsonArray = new JSONArray(response);
+                    String pass = jsonArray.getString(0);
+                    if(pass.equals(txtContraseña.getText().toString())){
+
+                        Toast.makeText(getApplicationContext(),"Bienvenido",Toast.LENGTH_SHORT).show();
+                        Intent intent = new Intent(LoginActivity.this, Menu_Activity.class);
+                        startActivity(intent);
+
+                    }else{
+                        Toast.makeText(getApplicationContext(),"verifique su contraseña",Toast.LENGTH_SHORT).show();
+
+                    }
+
+                } catch (JSONException e) {
+                    e.printStackTrace();
+
+                    Toast.makeText(getApplicationContext(),"El usuario no existe en la base de datos",Toast.LENGTH_LONG).show();
+                }
+
+
+            }
+        }, new Response.ErrorListener() {
+            @Override
+            public void onErrorResponse(VolleyError error) {
+
+            }
+        });
+
+        queue.add(stringRequest);
+
+
+
+
+
     }
 
 }

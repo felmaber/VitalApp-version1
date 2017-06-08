@@ -3,6 +3,7 @@ package juliethosorio.vitalapp;
 import android.app.DatePickerDialog;
 import android.app.Dialog;
 import android.content.Intent;
+import android.os.AsyncTask;
 import android.os.Bundle;
 import android.support.design.widget.FloatingActionButton;
 import android.support.design.widget.Snackbar;
@@ -10,6 +11,7 @@ import android.support.v7.app.AppCompatActivity;
 import android.support.v7.widget.LinearLayoutManager;
 import android.support.v7.widget.RecyclerView;
 import android.support.v7.widget.Toolbar;
+import android.util.Log;
 import android.view.Menu;
 import android.view.MenuItem;
 import android.view.View;
@@ -20,7 +22,15 @@ import android.widget.DatePicker;
 import android.widget.EditText;
 import android.widget.GridLayout;
 import android.widget.Spinner;
+import android.widget.Toast;
 
+import java.io.IOException;
+import java.io.InputStream;
+import java.io.InputStreamReader;
+import java.io.Reader;
+import java.io.UnsupportedEncodingException;
+import java.net.HttpURLConnection;
+import java.net.URL;
 import java.util.ArrayList;
 import java.util.Calendar;
 
@@ -28,13 +38,15 @@ public class RegistroDependientesActivity extends AppCompatActivity {
 
     private int año,mes,dia;
     private EditText campofecha;
-    private Button btnFecha;
+    private Button btnFecha,Registrar;
     private  static final int dialogo=0;
     private static DatePickerDialog.OnDateSetListener selectorFecha;
     private CheckBox opcional;
     private GridLayout condicionMedica;
     private Spinner listaTipoSangre, listaEPS;
     private RecyclerView recyclerView;
+
+    private EditText campoId,campoNombre,correo,direccion,telefono;
 
     ArrayList<ListaCondicion> ArrayCondicion;
 
@@ -44,6 +56,14 @@ public class RegistroDependientesActivity extends AppCompatActivity {
         setContentView(R.layout.activity_registro_dependientes);
         Toolbar toolbar = (Toolbar) findViewById(R.id.toolbar);
         setSupportActionBar(toolbar);
+
+        campoId=(EditText)findViewById(R.id.campoId);
+        campoNombre=(EditText)findViewById(R.id.campoNombres);
+        correo=(EditText)findViewById(R.id.campoCorreo);
+        direccion=(EditText)findViewById(R.id.campodireccion);
+        telefono=(EditText)findViewById(R.id.campotelefono);
+
+        Registrar=(Button)findViewById(R.id.btnRegistrar);
 
         listaTipoSangre=(Spinner)findViewById(R.id.campotipoSangre);
         listaEPS=(Spinner)findViewById(R.id.cbEps);
@@ -94,6 +114,19 @@ public class RegistroDependientesActivity extends AppCompatActivity {
 
         adaptadorEPS=ArrayAdapter.createFromResource(this,R.array.eps,android.R.layout.simple_spinner_item);
         listaEPS.setAdapter(adaptadorEPS);
+
+        //accion boton guardar registro
+        Registrar.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                    new insertarDatos().
+                            execute("http://10.0.3.2/vitalapp/insertarDependiente.php?identificacion="+campoId.getText().toString()
+                                    +"&nombre="+campoNombre.getText().toString()+"&fecha="+campofecha.getText().toString()
+                                    +"&tipo="+listaTipoSangre.getSelectedItem().toString()+"&eps="+listaEPS.getSelectedItem().toString()
+                                    +"&correo="+correo.getText().toString()+"&telefono="+telefono.getText().toString()
+                                    +"&direccion="+direccion.getText().toString());
+                }
+        });
 
 
     }
@@ -149,10 +182,6 @@ public class RegistroDependientesActivity extends AppCompatActivity {
         }
     }
 
-    public void onClick(View view){
-        Intent irListaDependientes = new Intent(this, ListaDependientesActivity.class);
-        startActivity(irListaDependientes);
-    }
 
     public void mostrarLista(View view){
         switch (view .getId()) {
@@ -174,5 +203,67 @@ public class RegistroDependientesActivity extends AppCompatActivity {
         ArrayCondicion.add(new ListaCondicion("Limitacion Auditiva", "Neuristis Vesticular", "Antineurina"));
 
     }
+
+    //metodo para insertar datos dependiente
+    private class insertarDatos extends AsyncTask<String, Void,String> {
+
+        @Override
+        protected String doInBackground(String... urls) {
+            try{
+                return downloadUrl(urls[0]);
+            }catch (IOException e){
+                return "Unable to retrieve web page. URL may be invalid.";
+            }
+        }
+        protected void onPostExecute(String resultado){
+            Toast.makeText(getApplicationContext(),"El dependiente se ha guardado correctamente",Toast.LENGTH_LONG).show();
+            Intent irMenu = new Intent(RegistroDependientesActivity.this,ListaDependientesActivity.class);
+            irMenu.putExtra("id",campoId.getText().toString());
+            startActivity(irMenu);
+        }
+    }
+
+// metodo para llamar la url de conexion
+
+    private String downloadUrl(String miurl) throws IOException{
+        InputStream inputStream=null;
+
+        int len=500;
+
+        try {
+            URL url=new URL(miurl);
+            HttpURLConnection conexion=(HttpURLConnection)url.openConnection();
+            conexion.setReadTimeout(10000);
+            conexion.setConnectTimeout(15000);
+            conexion.setRequestMethod("GET");
+            conexion.setDoInput(true);
+
+            conexion.connect();
+
+            int respuesta= conexion.getResponseCode();
+            Log.d("respuesta","La respuesta es: "+respuesta);
+
+            inputStream=conexion.getInputStream();
+
+            String contentAsString= readIt(inputStream, len);
+            return contentAsString;
+        }finally {
+            if (inputStream!=null){
+                inputStream.close();
+            }
+        }
+    }
+
+    //lee el inputstream y lo convierte en un string
+
+    private String readIt(InputStream inputStream, int len)
+            throws IOException, UnsupportedEncodingException {
+        Reader leer=null;
+        leer=new InputStreamReader(inputStream, "UTF-8");
+        char[] buffer=new char[len];
+        leer.read(buffer);
+        return new String(buffer);
+    }
+
 
 }
