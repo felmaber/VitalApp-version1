@@ -147,6 +147,29 @@
                     android:layout_height="wrap_content"
                     android:hint="telefono contacto"/>
 
+                <TextView
+                    android:id="@+id/campoCondicionUsuario"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:visibility="gone"
+                    android:hint="Condicion"/>
+
+                <TextView
+                    android:id="@+id/campoEnfermedadUsuario"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:visibility="gone"
+                    android:hint="Enfermedad"/>
+
+                <TextView
+                    android:id="@+id/campoMedicamentosUsuario"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:visibility="gone"
+                    android:hint="Medicamentos"/>
+
+
+
 
             </LinearLayout>
         </ScrollView>

@@ -54,9 +54,9 @@
         <activity
             android:name=".TiendaVitalActivity"
             android:theme="@style/AppTheme.NoActionBar" />
+
         <activity
-            android:name=".Mi_PerfilActivity"
-            android:label="@string/title_activity_mi__perfil"
+            android:name=".PerfilActivity"
             android:theme="@style/AppTheme.NoActionBar"></activity>
     </application>
 

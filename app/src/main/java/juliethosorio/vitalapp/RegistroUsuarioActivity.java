@@ -50,11 +50,11 @@ public class RegistroUsuarioActivity  extends AppCompatActivity  {
     private CheckBox opcional;
     private GridLayout condicionMedica;
     private Spinner listaTipoSangre, listaEPS;
-    private RecyclerView recyclerView;
+    //private RecyclerView recyclerView;
 
 
 
-    ArrayList<ListaCondicion> ArrayCondicion;
+   // ArrayList<ListaCondicion> ArrayCondicion;
     private int campotipoSangre;
 
     protected void onCreate(Bundle savedInstanceState)
@@ -91,16 +91,6 @@ public class RegistroUsuarioActivity  extends AppCompatActivity  {
             mes=calendario.get(Calendar.MONTH)+1;
             dia=calendario.get(Calendar.DAY_OF_MONTH);
             mostrarFecha();
-
-
-            recyclerView= (RecyclerView) findViewById(R.id.RListaCondiciones);
-            recyclerView.setLayoutManager(new LinearLayoutManager((getApplicationContext())));
-            recyclerView.setHasFixedSize(true);
-
-            llenarListaCondicion();
-
-            RecyclerListaCondicion adaptador=new RecyclerListaCondicion(ArrayCondicion);
-            recyclerView.setAdapter(adaptador);
 
             //fecha seleccionada
             selectorFecha=new DatePickerDialog.OnDateSetListener() {
@@ -146,7 +136,8 @@ public class RegistroUsuarioActivity  extends AppCompatActivity  {
                                         +"&correo="+campoCorreo.getText().toString()+"&telefono="+campoTelefono.getText().toString()
                                         +"&direccion="+campoDireccion.getText().toString()+"&contacto="+campoNombreContacto.getText().toString()
                                         +"&tel_contacto="+campoTelContacto.getText().toString()+"&user="+campoUsuario.getText().toString()
-                                        +"&pass="+campoContraseña.getText().toString());
+                                        +"&pass="+campoContraseña.getText().toString()+"&condicion="+campoCondicion.getText().toString()
+                                        +"&enfermedad="+campoEnfermedad.getText().toString()+"&medicamentos="+campoMedicamentos.getText().toString());
                     }
                     else{
 
@@ -209,26 +200,6 @@ public class RegistroUsuarioActivity  extends AppCompatActivity  {
     }
 
 
-    public void mostrarLista(View view){
-        switch (view .getId()) {
-            case R.id.btnAgregar:
-                recyclerView.setVisibility(View.VISIBLE);
-                break;
-            case R.id.btnSalir:
-                recyclerView.setVisibility(View.GONE);
-        }
-    }
-
-
-    private void llenarListaCondicion(){
-        ArrayCondicion=new ArrayList<ListaCondicion>();
-
-        ListaCondicion miListaCondicion=new ListaCondicion();
-
-        ArrayCondicion.add(new ListaCondicion("Limitacion Auditiva", "Neuristis Vesticular", "Antineurina"));
-
-    }
-
     //metodo para insertar datos usuario
     private class insertarDatos extends AsyncTask<String, Void,String>{
 
@@ -242,8 +213,13 @@ public class RegistroUsuarioActivity  extends AppCompatActivity  {
         }
         protected void onPostExecute(String resultado){
             Toast.makeText(getApplicationContext(),"El usuario se ha guardado correctamente",Toast.LENGTH_LONG).show();
+
             Intent irMenu = new Intent(RegistroUsuarioActivity.this,Menu_Activity.class);
-            irMenu.putExtra("id",campoId.getText().toString());
+
+            Bundle miId= new Bundle();
+            miId.putString("id",campoId.getText().toString());
+            irMenu.putExtras(miId);
+
             startActivity(irMenu);
         }
     }

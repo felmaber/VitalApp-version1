@@ -10,6 +10,7 @@ import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.ImageButton;
+import android.widget.TextView;
 
 import org.json.JSONArray;
 import org.json.JSONException;
@@ -62,16 +63,12 @@ public class MiPerfil_Fragment extends Fragment {
                              Bundle savedInstanceState) {
         View vista;
         vista= inflater.inflate(R.layout.fragment_mi_perfil_, container, false);
-        ImageButton btnQR,btngrupos,btnDependiente,btnTienda;
 
-        btnQR=(ImageButton)vista.findViewById(R.id.btnMenuQR);
-        btngrupos=(ImageButton)vista.findViewById(R.id.btnMenuGrupos);
-        btnDependiente=(ImageButton)vista.findViewById(R.id.btnMenuDependiente);
-        btnTienda=(ImageButton)vista.findViewById(R.id.btnMenuCompras);
+        TextView condicion=(TextView)vista.findViewById(R.id.campoCondicionUsuario);
+        TextView enfermedad=(TextView)vista.findViewById(R.id.campoEnfermedadUsuario);
+        TextView medicamentos=(TextView)vista.findViewById(R.id.campoMedicamentosUsuario);
 
         return vista;
-
-
 
     }
 

@@ -34,6 +34,7 @@ import java.io.UnsupportedEncodingException;
 import java.net.HttpURLConnection;
 import java.net.URL;
 
+import static juliethosorio.vitalapp.R.id.campoCondicionUsuario;
 import static juliethosorio.vitalapp.R.id.campoIdPerfil;
 
 public class Menu_Activity extends AppCompatActivity implements NavigationView.OnNavigationItemSelectedListener
@@ -55,6 +56,9 @@ public class Menu_Activity extends AppCompatActivity implements NavigationView.O
         miperfil= new MiPerfil_Fragment();
         miProfesionSalud=new ProfesionalSaludFragment();
         miHistorial=new Historial_IncidenciasFragment();
+
+
+
 
         /*---------------------------------------------------------*/
         Toolbar toolbar = (Toolbar) findViewById(R.id.toolbar);
@@ -124,8 +128,8 @@ public class Menu_Activity extends AppCompatActivity implements NavigationView.O
         //String idPerfil=getIntent().getStringExtra("id");
 
         if (id == R.id.miPerfil) {
-            fragmento= new MiPerfil_Fragment();
-            seleccion=true;
+            Intent perfil= new Intent(Menu_Activity.this,PerfilActivity.class);
+            startActivity(perfil);
 
         } else if (id == R.id.profesionalSalud) {
             fragmento= new ProfesionalSaludFragment();
@@ -268,7 +272,5 @@ public class Menu_Activity extends AppCompatActivity implements NavigationView.O
         leer.read(buffer);
         return new String(buffer);
     }
-
-
 
 }

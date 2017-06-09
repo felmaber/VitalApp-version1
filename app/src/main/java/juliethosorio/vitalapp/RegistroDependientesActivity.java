@@ -76,16 +76,6 @@ public class RegistroDependientesActivity extends AppCompatActivity {
         dia=calendario.get(Calendar.DAY_OF_MONTH);
         mostrarFecha();
 
-
-        recyclerView= (RecyclerView) findViewById(R.id.RListaCondiciones);
-        recyclerView.setLayoutManager(new LinearLayoutManager((getApplicationContext())));
-        recyclerView.setHasFixedSize(true);
-
-        llenarListaCondicion();
-
-        RecyclerListaCondicion adaptador=new RecyclerListaCondicion(ArrayCondicion);
-        recyclerView.setAdapter(adaptador);
-
         //fecha seleccionada
         selectorFecha=new DatePickerDialog.OnDateSetListener() {
             @Override
@@ -180,28 +170,6 @@ public class RegistroDependientesActivity extends AppCompatActivity {
         else{
             condicionMedica.setVisibility(View.GONE);
         }
-    }
-
-
-    public void mostrarLista(View view){
-        switch (view .getId()) {
-            case R.id.btnAgregar:
-                recyclerView.setVisibility(View.VISIBLE);
-                break;
-            case R.id.btnSalir:
-                recyclerView.setVisibility(View.GONE);
-        }
-    }
-
-
-    private void llenarListaCondicion(){
-        ArrayCondicion=new ArrayList<ListaCondicion>();
-
-        ListaCondicion miListaCondicion=new ListaCondicion();
-
-        ArrayCondicion.add(new ListaCondicion("Limitacion Auditiva", "Neuristis Vesticular", "Antineurina"));
-        ArrayCondicion.add(new ListaCondicion("Limitacion Auditiva", "Neuristis Vesticular", "Antineurina"));
-
     }
 
     //metodo para insertar datos dependiente
