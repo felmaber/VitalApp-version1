@@ -25,7 +25,10 @@ import org.json.JSONException;
 public class LoginActivity extends AppCompatActivity {
 
     JSONArray jsonArray;
+
     EditText txtUsuario,txtContraseña;
+
+    UsuarioVO usuarioVO= new UsuarioVO();
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -71,6 +74,7 @@ public class LoginActivity extends AppCompatActivity {
                     Toast.makeText(getApplicationContext(),"Ingrese Usuario y Contraseña",Toast.LENGTH_SHORT).show();
                 }
                 else{
+
                 ConsultaPass("http://10.0.3.2/vitalapp/login.php?user="+txtUsuario.getText().toString());
                 }
                 break;
@@ -88,11 +92,32 @@ public class LoginActivity extends AppCompatActivity {
 
                 try {
                     jsonArray = new JSONArray(response);
-                    String pass = jsonArray.getString(0);
+                    usuarioVO.setIdentificacion(jsonArray.getString(0));
+                    usuarioVO.setNombre(jsonArray.getString(1));
+                    usuarioVO.setFecha(jsonArray.getString(2));
+                    usuarioVO.setTipoSangre(jsonArray.getString(3));
+                    usuarioVO.setEps(jsonArray.getString(4));
+                    usuarioVO.setCorreo(jsonArray.getString(5));
+                    usuarioVO.setTelefono(jsonArray.getString(6));
+                    usuarioVO.setDireccion(jsonArray.getString(7));
+                    usuarioVO.setContacto(jsonArray.getString(8));
+                    usuarioVO.setTelContacto(jsonArray.getString(9));
+                    usuarioVO.setCondicion(jsonArray.getString(12));
+                    usuarioVO.setEnfermedad(jsonArray.getString(13));
+                    usuarioVO.setMedicamentos(jsonArray.getString(14));
+
+
+                    String pass = jsonArray.getString(11);
                     if(pass.equals(txtContraseña.getText().toString())){
 
                         Toast.makeText(getApplicationContext(),"Bienvenido",Toast.LENGTH_SHORT).show();
+
                         Intent intent = new Intent(LoginActivity.this, Menu_Activity.class);
+
+                        Bundle bundleUsuario=new Bundle();
+                        bundleUsuario.putSerializable("usuario",usuarioVO);
+                        intent.putExtras(bundleUsuario);
+
                         startActivity(intent);
 
                     }else{
@@ -116,11 +141,8 @@ public class LoginActivity extends AppCompatActivity {
         });
 
         queue.add(stringRequest);
-
-
-
-
-
     }
+
+
 
 }

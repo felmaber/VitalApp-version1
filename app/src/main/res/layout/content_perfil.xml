@@ -63,89 +63,167 @@
     <ScrollView
         android:layout_width="match_parent"
         android:layout_height="wrap_content">
-        <LinearLayout
+        <GridLayout
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:orientation="vertical">
+            android:rowCount="15"
+            android:columnCount="2">
+
+            <TextView
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:text="Identificacion: "
+                android:layout_marginBottom="5dp"
+                />
 
             <TextView
                 android:id="@+id/campoIdPerfil"
-                android:layout_width="match_parent"
+                android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:hint="identificacion"/>
 
             <TextView
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:text="Nombre Completo:"
+                android:layout_marginBottom="5dp"/>
+
+            <TextView
                 android:id="@+id/campoNombresPerfil"
-                android:layout_width="match_parent"
+                android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:hint="nombre"/>
 
             <TextView
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:text="Fecha de Nacimiento:"
+                android:layout_marginBottom="5dp"
+                android:layout_marginRight="5dp"/>
+            <TextView
                 android:id="@+id/campoFechaNacimientoPerfil"
-                android:layout_width="match_parent"
+                android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:hint="fecha"/>
 
             <TextView
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:text="Tipo de Sangre:"
+                android:layout_marginBottom="5dp"/>
+
+            <TextView
                 android:id="@+id/campotipoSangrePerfil"
-                android:layout_width="match_parent"
+                android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:hint="tipo de sangre"/>
 
             <TextView
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:text="Eps: "
+                android:layout_marginBottom="5dp"/>
+
+            <TextView
                 android:id="@+id/campoEPSperfil"
-                android:layout_width="match_parent"
+                android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:hint="eps"/>
 
 
             <TextView
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:text="Correo Electronico:"
+                android:layout_marginBottom="5dp"/>
+
+            <TextView
                 android:id="@+id/campoCorreoPerfil"
-                android:layout_width="match_parent"
+                android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:hint="correo"/>
 
             <TextView
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:text="Telefono:"
+                android:layout_marginBottom="5dp"/>
+
+            <TextView
                 android:id="@+id/campotelefonoPerfil"
-                android:layout_width="match_parent"
+                android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:hint="telefono"/>
 
             <TextView
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:text="Direccion:"
+                android:layout_marginBottom="5dp"/>
+            <TextView
                 android:id="@+id/campoDireccionPerfil"
-                android:layout_width="match_parent"
+                android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:hint="direccion"/>
 
             <TextView
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:text="Contacto:"
+                android:layout_marginBottom="5dp"/>
+
+            <TextView
                 android:id="@+id/campoContactoPerfil"
-                android:layout_width="match_parent"
+                android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:hint="contacto"/>
 
             <TextView
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:text="Telefono Contacto:"
+                android:layout_marginBottom="5dp"/>
+
+            <TextView
                 android:id="@+id/campotelContactoPerfil"
-                android:layout_width="match_parent"
+                android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:hint="telefono contacto"/>
 
             <TextView
-                android:id="@+id/campoCondicionUsuario"
-                android:layout_width="match_parent"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:text="Condicion: "
+                android:layout_marginBottom="5dp"/>
+
+            <TextView
+                android:id="@+id/campoCondicionPerfil"
+                android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:visibility="gone"
                 android:hint="Condicion"/>
 
             <TextView
-                android:id="@+id/campoEnfermedadUsuario"
-                android:layout_width="match_parent"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:text="Enfermedad: "
+                android:layout_marginBottom="5dp"/>
+            <TextView
+                android:id="@+id/campoEnfermedadPerfil"
+                android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:visibility="gone"
                 android:hint="Enfermedad"/>
 
             <TextView
-                android:id="@+id/campoMedicamentosUsuario"
-                android:layout_width="match_parent"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:text="Medicamentos:"
+                android:layout_marginBottom="5dp"/>
+
+            <TextView
+                android:id="@+id/campoMedicamentosPerfil"
+                android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:visibility="gone"
                 android:hint="Medicamentos"/>
@@ -153,7 +231,8 @@
 
 
 
-        </LinearLayout>
+
+        </GridLayout>
     </ScrollView>
 
 </LinearLayout>

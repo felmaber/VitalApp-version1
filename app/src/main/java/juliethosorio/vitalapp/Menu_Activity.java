@@ -58,6 +58,8 @@ public class Menu_Activity extends AppCompatActivity implements NavigationView.O
         miHistorial=new Historial_IncidenciasFragment();
 
 
+        //recibimos la informacion del objeto UsuarioVO que llega de Login
+       // UsuarioVO usuarioVO2= (UsuarioVO)getIntent().getSerializableExtra("usuario");
 
 
         /*---------------------------------------------------------*/
@@ -125,10 +127,15 @@ public class Menu_Activity extends AppCompatActivity implements NavigationView.O
         Fragment fragmento=null;
         boolean seleccion=false;
         int id = item.getItemId();
-        //String idPerfil=getIntent().getStringExtra("id");
+        UsuarioVO usuarioVO2= (UsuarioVO)getIntent().getSerializableExtra("usuario");
 
         if (id == R.id.miPerfil) {
-            Intent perfil= new Intent(Menu_Activity.this,PerfilActivity.class);
+          Intent perfil= new Intent(Menu_Activity.this,PerfilActivity.class);
+
+            Bundle usuarioperfilbundle=new Bundle();
+            usuarioperfilbundle.putSerializable("usuario",usuarioVO2);
+            perfil.putExtras(usuarioperfilbundle);
+
             startActivity(perfil);
 
         } else if (id == R.id.profesionalSalud) {

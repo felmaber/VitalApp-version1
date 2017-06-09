@@ -48,7 +48,7 @@ public class RegistroDependientesActivity extends AppCompatActivity {
 
     private EditText campoId,campoNombre,correo,direccion,telefono;
 
-    ArrayList<ListaCondicion> ArrayCondicion;
+
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
