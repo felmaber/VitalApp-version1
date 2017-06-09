@@ -34,14 +34,11 @@ import java.io.UnsupportedEncodingException;
 import java.net.HttpURLConnection;
 import java.net.URL;
 
-import static juliethosorio.vitalapp.R.id.campoCondicionUsuario;
-import static juliethosorio.vitalapp.R.id.campoIdPerfil;
 
 public class Menu_Activity extends AppCompatActivity implements NavigationView.OnNavigationItemSelectedListener
-        ,MenuFragment.OnFragmentInteractionListener,ProfesionalSaludFragment.OnFragmentInteractionListener,Historial_IncidenciasFragment.OnFragmentInteractionListener {
+        ,MenuFragment.OnFragmentInteractionListener,Historial_IncidenciasFragment.OnFragmentInteractionListener {
 
     MenuFragment menuFragment;
-    ProfesionalSaludFragment miProfesionSalud;
     Historial_IncidenciasFragment miHistorial;
 
 
@@ -51,7 +48,6 @@ public class Menu_Activity extends AppCompatActivity implements NavigationView.O
         setContentView(R.layout.activity_menu_);
 
         menuFragment= new MenuFragment();
-        miProfesionSalud=new ProfesionalSaludFragment();
         miHistorial=new Historial_IncidenciasFragment();
 
         /*---------------------------------------------------------*/
@@ -131,8 +127,10 @@ public class Menu_Activity extends AppCompatActivity implements NavigationView.O
             startActivity(perfil);
 
         } else if (id == R.id.profesionalSalud) {
-            fragmento= new ProfesionalSaludFragment();
-            seleccion=true;
+
+            Intent profesional=new Intent(Menu_Activity.this,ProfesionalActivity.class);
+            startActivity(profesional);
+
         } else if (id == R.id.historialIncidencias) {
             fragmento= new Historial_IncidenciasFragment();
             seleccion=true;
@@ -148,45 +146,62 @@ public class Menu_Activity extends AppCompatActivity implements NavigationView.O
 
     public void onClick(View view)
     {
-        Intent intent=null;
         UsuarioVO usuarioVO2= (UsuarioVO)getIntent().getSerializableExtra("usuario");
         switch (view.getId()){
+
             case R.id.btnCrearQR:
-                intent= new Intent(this,RegistroUsuarioActivity.class);
+                Intent intent= new Intent(this,RegistroUsuarioActivity.class);
+                startActivity(intent);
                 break;
+
             case R.id.btnDependiente:
-                intent= new Intent(this,ListaDependientesActivity.class);
+                Intent intentdependiente= new Intent(this,ListaDependientesActivity.class);
 
                 Bundle usuarioperfildependientebundle=new Bundle();
                 usuarioperfildependientebundle.putSerializable("usuario",usuarioVO2);
-                intent.putExtras(usuarioperfildependientebundle);
+                intentdependiente.putExtras(usuarioperfildependientebundle);
+
+                startActivity(intentdependiente);
 
                 break;
             case R.id.btnGrupos:
-                intent= new Intent(this,GruposActivity.class);
+                Intent intentgrupo= new Intent(this,GruposActivity.class);
 
                 Bundle usuarioperfilgrupobundle=new Bundle();
                 usuarioperfilgrupobundle.putSerializable("usuario",usuarioVO2);
-                intent.putExtras(usuarioperfilgrupobundle);
+                intentgrupo.putExtras(usuarioperfilgrupobundle);
+
+                startActivity(intentgrupo);
 
                 break;
             case R.id.btnCompras:
-                intent= new Intent(this,TiendaVitalActivity.class);
+                Intent intentcompras= new Intent(Menu_Activity.this,TiendaVitalActivity.class);
+
+                Bundle usuarioperfiltiendabundle=new Bundle();
+                usuarioperfiltiendabundle.putSerializable("usuario",usuarioVO2);
+                intentcompras.putExtras(usuarioperfiltiendabundle);
+
+                startActivity(intentcompras);
+
                 break;
             case R.id.btnMenuQR:
-                intent=new Intent(this,RegistroUsuarioActivity.class);
+                Intent intentmenuQR=new Intent(this,RegistroUsuarioActivity.class);
+                startActivity(intentmenuQR);
                 break;
             case R.id.btnMenuGrupos:
-                intent=new Intent(this,GruposActivity.class);
+                Intent intentmenugrupo=new Intent(this,GruposActivity.class);
+                startActivity(intentmenugrupo);
                 break;
             case R.id.btnMenuDependiente:
-                intent=new Intent(this, ListaDependientesActivity.class);
+               Intent intentmenudependiente=new Intent(this, ListaDependientesActivity.class);
+                startActivity(intentmenudependiente);
                 break;
             case R.id.btnMenuCompras:
-                intent=new Intent(this,TiendaVitalActivity.class);
+                Intent intentmenucompras=new Intent(this,TiendaVitalActivity.class);
+                startActivity(intentmenucompras);
                 break;
         }
-        startActivity(intent);
+
     }
 
     @Override

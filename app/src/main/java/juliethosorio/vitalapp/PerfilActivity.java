@@ -51,10 +51,6 @@ public class PerfilActivity extends AppCompatActivity {
                         .setAction("Action", null).show();
             }
         });
-
-
-
-
         mostrarPerfil();
 
     }

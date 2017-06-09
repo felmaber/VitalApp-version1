@@ -129,8 +129,7 @@ public class RegistroUsuarioActivity  extends AppCompatActivity  {
 
                     if (campoContraseña.getText().toString().equals(campoContraseña2.getText().toString()))
                     {
-                        new insertarDatos().
-                                execute("http://10.0.3.2/vitalapp/ingresarUsuario.php?identificacion="+campoId.getText().toString()
+                        new insertarDatos().execute("http://10.0.3.2/vitalapp/ingresarUsuario.php?identificacion="+campoId.getText().toString()
                                         +"&nombre="+campoNombre.getText().toString()+"&fecha="+campofecha.getText().toString()
                                         +"&tipo="+listaTipoSangre.getSelectedItem().toString()+"&eps="+listaEPS.getSelectedItem().toString()
                                         +"&correo="+campoCorreo.getText().toString()+"&telefono="+campoTelefono.getText().toString()
@@ -214,11 +213,7 @@ public class RegistroUsuarioActivity  extends AppCompatActivity  {
         protected void onPostExecute(String resultado){
             Toast.makeText(getApplicationContext(),"El usuario se ha guardado correctamente",Toast.LENGTH_LONG).show();
 
-            Intent irMenu = new Intent(RegistroUsuarioActivity.this,Menu_Activity.class);
-
-            Bundle miId= new Bundle();
-            miId.putString("id",campoId.getText().toString());
-            irMenu.putExtras(miId);
+            Intent irMenu = new Intent(RegistroUsuarioActivity.this,LoginActivity.class);
 
             startActivity(irMenu);
         }

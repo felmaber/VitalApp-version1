@@ -18,12 +18,10 @@ import android.view.MenuItem;
 
 public class GruposActivity extends AppCompatActivity
         implements NavigationView.OnNavigationItemSelectedListener, GruposFragment.OnFragmentInteractionListener,
-        ProfesionalSaludFragment.OnFragmentInteractionListener,
         Historial_IncidenciasFragment.OnFragmentInteractionListener{
 
 
     GruposFragment gruposFragment;
-    ProfesionalSaludFragment miProfesionSalud;
     Historial_IncidenciasFragment miHistorial;
 
     @Override
@@ -31,7 +29,6 @@ public class GruposActivity extends AppCompatActivity
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_grupos);
 
-        miProfesionSalud=new ProfesionalSaludFragment();
         miHistorial=new Historial_IncidenciasFragment();
         gruposFragment=new GruposFragment();
 
@@ -100,16 +97,16 @@ public class GruposActivity extends AppCompatActivity
         UsuarioVO usuarioVO2= (UsuarioVO)getIntent().getSerializableExtra("usuario");
 
         if (id == R.id.miPerfil) {
-            Intent perfil= new Intent(GruposActivity.this,PerfilActivity.class);
+            Intent perfilgrupo= new Intent(GruposActivity.this,PerfilActivity.class);
 
-            Bundle usuarioperfilbundle=new Bundle();
-            usuarioperfilbundle.putSerializable("usuario",usuarioVO2);
-            perfil.putExtras(usuarioperfilbundle);
+            Bundle usuarioperfilgrupobundle=new Bundle();
+            usuarioperfilgrupobundle.putSerializable("usuario",usuarioVO2);
+            perfilgrupo.putExtras(usuarioperfilgrupobundle);
 
-            startActivity(perfil);
+            startActivity(perfilgrupo);
         } else if (id == R.id.profesionalSalud) {
-            fragmento= new ProfesionalSaludFragment();
-            seleccion=true;
+            Intent profesional=new Intent(GruposActivity.this,ProfesionalActivity.class);
+            startActivity(profesional);
         } else if (id == R.id.historialIncidencias) {
             fragmento= new Historial_IncidenciasFragment();
             seleccion=true;

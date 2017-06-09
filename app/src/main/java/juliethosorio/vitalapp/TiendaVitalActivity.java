@@ -18,13 +18,10 @@ import android.view.MenuItem;
 
 public class TiendaVitalActivity extends AppCompatActivity
         implements NavigationView.OnNavigationItemSelectedListener,
-        TiendaFragment.OnFragmentInteractionListener,MiPerfil_Fragment.OnFragmentInteractionListener,
-        ProfesionalSaludFragment.OnFragmentInteractionListener,
+        TiendaFragment.OnFragmentInteractionListener,
         Historial_IncidenciasFragment.OnFragmentInteractionListener{
 
     TiendaFragment tiendaFragment;
-    MiPerfil_Fragment miperfil;
-    ProfesionalSaludFragment miProfesionSalud;
     Historial_IncidenciasFragment miHistorial;
 
     @Override
@@ -33,8 +30,6 @@ public class TiendaVitalActivity extends AppCompatActivity
         setContentView(R.layout.activity_tienda_vital);
 
         tiendaFragment=new TiendaFragment();
-        miperfil= new MiPerfil_Fragment();
-        miProfesionSalud=new ProfesionalSaludFragment();
         miHistorial=new Historial_IncidenciasFragment();
 
         Toolbar toolbar = (Toolbar) findViewById(R.id.toolbar);
@@ -82,7 +77,7 @@ public class TiendaVitalActivity extends AppCompatActivity
     public boolean onOptionsItemSelected(MenuItem item) {
         switch (item.getItemId()){
             case R.id.salir:
-                Intent irLogin= new Intent(this,LoginActivity.class);
+                Intent irLogin= new Intent(this,Menu_Activity.class);
                 startActivity(irLogin);
                 break;
             case R.id.ayuda:
@@ -99,13 +94,21 @@ public class TiendaVitalActivity extends AppCompatActivity
         Fragment fragmento=null;
         boolean seleccion=false;
         int id = item.getItemId();
+        UsuarioVO usuarioVO2= (UsuarioVO)getIntent().getSerializableExtra("usuario");
 
         if (id == R.id.miPerfil) {
-            fragmento= new MiPerfil_Fragment();
-            seleccion=true;
+            Intent perfil= new Intent(TiendaVitalActivity.this,PerfilActivity.class);
+
+            Bundle usuarioperfiltiendabundle=new Bundle();
+            usuarioperfiltiendabundle.putSerializable("usuario",usuarioVO2);
+            perfil.putExtras(usuarioperfiltiendabundle);
+
+            startActivity(perfil);
         } else if (id == R.id.profesionalSalud) {
-            fragmento= new ProfesionalSaludFragment();
-            seleccion=true;
+
+            Intent profesional=new Intent(TiendaVitalActivity.this,ProfesionalActivity.class);
+            startActivity(profesional);
+
         } else if (id == R.id.historialIncidencias) {
             fragmento= new Historial_IncidenciasFragment();
             seleccion=true;

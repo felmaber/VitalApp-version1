@@ -32,4 +32,5 @@
     <string name="title_activity_tienda_vital">TiendaVitalActivity</string>
     <string name="title_activity_mi__perfil">Mi_PerfilActivity</string>
     <string name="title_activity_perfil">PerfilActivity</string>
+    <string name="title_activity_profesional">ProfesionalActivity</string>
 </resources>

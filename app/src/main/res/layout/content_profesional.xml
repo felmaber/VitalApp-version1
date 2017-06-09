@@ -1,0 +1,117 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:id="@+id/content_profesional"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:paddingBottom="@dimen/activity_vertical_margin"
+    android:paddingLeft="@dimen/activity_horizontal_margin"
+    android:paddingRight="@dimen/activity_horizontal_margin"
+    android:paddingTop="@dimen/activity_vertical_margin"
+    android:orientation="vertical"
+    app:layout_behavior="@string/appbar_scrolling_view_behavior"
+    tools:context="juliethosorio.vitalapp.ProfesionalActivity"
+    tools:showIn="@layout/activity_profesional">
+
+    <GridLayout
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:rowCount="1"
+        android:columnCount="4"
+        android:layout_gravity="center">
+
+        <ImageButton
+            android:id="@+id/btnMenuQR"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:src="@drawable/qr1"
+            android:background="@null"
+            android:layout_marginLeft="30dp"
+            android:layout_marginRight="30dp"
+            android:layout_marginTop="10dp"
+            android:onClick="onClick"/>
+
+        <ImageButton
+            android:id="@+id/btnMenuGrupos"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:src="@drawable/grupo1"
+            android:background="@null"
+            android:layout_marginLeft="20dp"
+            android:layout_marginRight="30dp"
+            android:layout_marginTop="10dp"
+            android:onClick="onClick"/>
+
+        <ImageButton
+            android:id="@+id/btnMenuDependiente"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:src="@drawable/especial1"
+            android:background="@null"
+            android:layout_marginLeft="20dp"
+            android:layout_marginRight="30dp"
+            android:layout_marginTop="10dp"
+            android:onClick="onClick"/>
+
+        <ImageButton
+            android:id="@+id/btnMenuCompras"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:src="@drawable/compras1"
+            android:background="@null"
+            android:layout_marginLeft="20dp"
+            android:layout_marginRight="30dp"
+            android:layout_marginTop="10dp"
+            android:onClick="onClick"/>
+
+    </GridLayout>
+    <ImageView
+        android:layout_width="50dp"
+        android:layout_height="50dp"
+        android:src="@drawable/logo"
+        android:layout_gravity="center"
+        android:layout_marginTop="20dp"/>
+    <TextView
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:text="Profesional Salud"
+        android:textAlignment="center"
+        android:textSize="20sp"
+        android:textColor="#1C1C1C"
+        android:layout_marginBottom="30dp"/>
+
+    <EditText
+        android:id="@+id/camporegistroPro"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:hint="Registro Profesional"/>
+
+
+    <Spinner
+        android:id="@+id/spinnerEspecialidad"
+        android:layout_width="match_parent"
+        android:layout_marginTop="10dp"
+        android:layout_marginBottom="30dp"
+        android:layout_height="wrap_content">
+    </Spinner>
+
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_gravity="center"
+        android:orientation="horizontal">
+
+        <Button
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:text="Agregar"
+            android:background="@color/colorPrimary"
+            android:textStyle="bold"
+            android:textColor="#FFFFFF"
+            android:id="@+id/btnAgregarProfesional"
+            android:onClick="mostrarLista"/>
+
+    </LinearLayout>
+
+</LinearLayout>

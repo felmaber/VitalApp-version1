@@ -4,10 +4,7 @@ import android.content.Intent;
 import android.net.Uri;
 import android.os.Bundle;
 import android.support.design.widget.FloatingActionButton;
-import android.support.design.widget.Snackbar;
 import android.support.v4.app.Fragment;
-import android.support.v7.widget.LinearLayoutManager;
-import android.support.v7.widget.RecyclerView;
 import android.view.View;
 import android.support.design.widget.NavigationView;
 import android.support.v4.view.GravityCompat;
@@ -22,14 +19,10 @@ import java.util.ArrayList;
 
 public class ListaDependientesActivity extends AppCompatActivity
         implements NavigationView.OnNavigationItemSelectedListener, ListaDependientesFragment.OnFragmentInteractionListener
-       ,ProfesionalSaludFragment.OnFragmentInteractionListener,
-        Historial_IncidenciasFragment.OnFragmentInteractionListener  {
-
-
+       ,Historial_IncidenciasFragment.OnFragmentInteractionListener  {
 
 
     ListaDependientesFragment listaDependientesFragment;
-    ProfesionalSaludFragment miProfesionSalud;
     Historial_IncidenciasFragment miHistorial;
 
     @Override
@@ -38,7 +31,6 @@ public class ListaDependientesActivity extends AppCompatActivity
         setContentView(R.layout.activity_lista_dependientes);
 
 
-        miProfesionSalud=new ProfesionalSaludFragment();
         miHistorial=new Historial_IncidenciasFragment();
         listaDependientesFragment=new ListaDependientesFragment();
 
@@ -50,8 +42,14 @@ public class ListaDependientesActivity extends AppCompatActivity
         fab.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
-                Intent intent = new Intent(ListaDependientesActivity.this, RegistroDependientesActivity.class);
-                startActivity(intent);
+                UsuarioVO usuarioVO2= (UsuarioVO)getIntent().getSerializableExtra("usuario");
+                Intent intentregistroDep = new Intent(ListaDependientesActivity.this, RegistroDependientesActivity.class);
+
+                Bundle bundleusuarioId=new Bundle();
+                bundleusuarioId.putSerializable("usuario",usuarioVO2);
+                intentregistroDep.putExtras(bundleusuarioId);
+
+                startActivity(intentregistroDep);
             }
         });
 
@@ -108,17 +106,17 @@ public class ListaDependientesActivity extends AppCompatActivity
         UsuarioVO usuarioVO2= (UsuarioVO)getIntent().getSerializableExtra("usuario");
 
         if (id == R.id.miPerfil) {
-            Intent perfil= new Intent(ListaDependientesActivity.this,PerfilActivity.class);
+            Intent perfildependientes= new Intent(ListaDependientesActivity.this,PerfilActivity.class);
 
-            Bundle usuarioperfilbundle=new Bundle();
-            usuarioperfilbundle.putSerializable("usuario",usuarioVO2);
-            perfil.putExtras(usuarioperfilbundle);
+            Bundle usuarioperfillistabundle=new Bundle();
+            usuarioperfillistabundle.putSerializable("usuario",usuarioVO2);
+            perfildependientes.putExtras(usuarioperfillistabundle);
 
-            startActivity(perfil);
+            startActivity(perfildependientes);
 
         } else if (id == R.id.profesionalSalud) {
-            fragmento= new ProfesionalSaludFragment();
-            seleccion=true;
+            Intent profesional=new Intent(ListaDependientesActivity.this,ProfesionalActivity.class);
+            startActivity(profesional);
         } else if (id == R.id.historialIncidencias) {
             fragmento= new Historial_IncidenciasFragment();
             seleccion=true;
