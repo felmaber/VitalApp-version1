@@ -18,12 +18,11 @@ import android.view.MenuItem;
 
 public class GruposActivity extends AppCompatActivity
         implements NavigationView.OnNavigationItemSelectedListener, GruposFragment.OnFragmentInteractionListener,
-        MiPerfil_Fragment.OnFragmentInteractionListener,ProfesionalSaludFragment.OnFragmentInteractionListener,
+        ProfesionalSaludFragment.OnFragmentInteractionListener,
         Historial_IncidenciasFragment.OnFragmentInteractionListener{
 
 
     GruposFragment gruposFragment;
-    MiPerfil_Fragment miperfil;
     ProfesionalSaludFragment miProfesionSalud;
     Historial_IncidenciasFragment miHistorial;
 
@@ -34,7 +33,6 @@ public class GruposActivity extends AppCompatActivity
 
         miProfesionSalud=new ProfesionalSaludFragment();
         miHistorial=new Historial_IncidenciasFragment();
-        miperfil=new MiPerfil_Fragment();
         gruposFragment=new GruposFragment();
 
 
@@ -99,10 +97,16 @@ public class GruposActivity extends AppCompatActivity
         Fragment fragmento=null;
         boolean seleccion=false;
         int id = item.getItemId();
+        UsuarioVO usuarioVO2= (UsuarioVO)getIntent().getSerializableExtra("usuario");
 
         if (id == R.id.miPerfil) {
-            fragmento= new MiPerfil_Fragment();
-            seleccion=true;
+            Intent perfil= new Intent(GruposActivity.this,PerfilActivity.class);
+
+            Bundle usuarioperfilbundle=new Bundle();
+            usuarioperfilbundle.putSerializable("usuario",usuarioVO2);
+            perfil.putExtras(usuarioperfilbundle);
+
+            startActivity(perfil);
         } else if (id == R.id.profesionalSalud) {
             fragmento= new ProfesionalSaludFragment();
             seleccion=true;

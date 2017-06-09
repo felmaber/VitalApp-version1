@@ -38,11 +38,9 @@ import static juliethosorio.vitalapp.R.id.campoCondicionUsuario;
 import static juliethosorio.vitalapp.R.id.campoIdPerfil;
 
 public class Menu_Activity extends AppCompatActivity implements NavigationView.OnNavigationItemSelectedListener
-        ,MenuFragment.OnFragmentInteractionListener,MiPerfil_Fragment.OnFragmentInteractionListener,
-        ProfesionalSaludFragment.OnFragmentInteractionListener,Historial_IncidenciasFragment.OnFragmentInteractionListener {
+        ,MenuFragment.OnFragmentInteractionListener,ProfesionalSaludFragment.OnFragmentInteractionListener,Historial_IncidenciasFragment.OnFragmentInteractionListener {
 
     MenuFragment menuFragment;
-    MiPerfil_Fragment miperfil;
     ProfesionalSaludFragment miProfesionSalud;
     Historial_IncidenciasFragment miHistorial;
 
@@ -53,14 +51,8 @@ public class Menu_Activity extends AppCompatActivity implements NavigationView.O
         setContentView(R.layout.activity_menu_);
 
         menuFragment= new MenuFragment();
-        miperfil= new MiPerfil_Fragment();
         miProfesionSalud=new ProfesionalSaludFragment();
         miHistorial=new Historial_IncidenciasFragment();
-
-
-        //recibimos la informacion del objeto UsuarioVO que llega de Login
-       // UsuarioVO usuarioVO2= (UsuarioVO)getIntent().getSerializableExtra("usuario");
-
 
         /*---------------------------------------------------------*/
         Toolbar toolbar = (Toolbar) findViewById(R.id.toolbar);
@@ -157,15 +149,26 @@ public class Menu_Activity extends AppCompatActivity implements NavigationView.O
     public void onClick(View view)
     {
         Intent intent=null;
+        UsuarioVO usuarioVO2= (UsuarioVO)getIntent().getSerializableExtra("usuario");
         switch (view.getId()){
             case R.id.btnCrearQR:
                 intent= new Intent(this,RegistroUsuarioActivity.class);
                 break;
             case R.id.btnDependiente:
                 intent= new Intent(this,ListaDependientesActivity.class);
+
+                Bundle usuarioperfildependientebundle=new Bundle();
+                usuarioperfildependientebundle.putSerializable("usuario",usuarioVO2);
+                intent.putExtras(usuarioperfildependientebundle);
+
                 break;
             case R.id.btnGrupos:
                 intent= new Intent(this,GruposActivity.class);
+
+                Bundle usuarioperfilgrupobundle=new Bundle();
+                usuarioperfilgrupobundle.putSerializable("usuario",usuarioVO2);
+                intent.putExtras(usuarioperfilgrupobundle);
+
                 break;
             case R.id.btnCompras:
                 intent= new Intent(this,TiendaVitalActivity.class);

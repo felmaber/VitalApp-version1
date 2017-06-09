@@ -21,15 +21,14 @@ import android.view.MenuItem;
 import java.util.ArrayList;
 
 public class ListaDependientesActivity extends AppCompatActivity
-        implements NavigationView.OnNavigationItemSelectedListener, ListaDependientesFragment.OnFragmentInteractionListener,
-        MiPerfil_Fragment.OnFragmentInteractionListener,ProfesionalSaludFragment.OnFragmentInteractionListener,
+        implements NavigationView.OnNavigationItemSelectedListener, ListaDependientesFragment.OnFragmentInteractionListener
+       ,ProfesionalSaludFragment.OnFragmentInteractionListener,
         Historial_IncidenciasFragment.OnFragmentInteractionListener  {
 
 
 
 
     ListaDependientesFragment listaDependientesFragment;
-    MiPerfil_Fragment miperfil;
     ProfesionalSaludFragment miProfesionSalud;
     Historial_IncidenciasFragment miHistorial;
 
@@ -38,7 +37,7 @@ public class ListaDependientesActivity extends AppCompatActivity
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_lista_dependientes);
 
-        miperfil= new MiPerfil_Fragment();
+
         miProfesionSalud=new ProfesionalSaludFragment();
         miHistorial=new Historial_IncidenciasFragment();
         listaDependientesFragment=new ListaDependientesFragment();
@@ -106,10 +105,17 @@ public class ListaDependientesActivity extends AppCompatActivity
         Fragment fragmento=null;
         boolean seleccion=false;
         int id = item.getItemId();
+        UsuarioVO usuarioVO2= (UsuarioVO)getIntent().getSerializableExtra("usuario");
 
         if (id == R.id.miPerfil) {
-            fragmento= new MiPerfil_Fragment();
-            seleccion=true;
+            Intent perfil= new Intent(ListaDependientesActivity.this,PerfilActivity.class);
+
+            Bundle usuarioperfilbundle=new Bundle();
+            usuarioperfilbundle.putSerializable("usuario",usuarioVO2);
+            perfil.putExtras(usuarioperfilbundle);
+
+            startActivity(perfil);
+
         } else if (id == R.id.profesionalSalud) {
             fragmento= new ProfesionalSaludFragment();
             seleccion=true;
