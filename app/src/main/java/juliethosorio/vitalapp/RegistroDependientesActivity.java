@@ -44,7 +44,6 @@ public class RegistroDependientesActivity extends AppCompatActivity {
     private CheckBox opcional;
     private GridLayout condicionMedica;
     private Spinner listaTipoSangre, listaEPS;
-    private RecyclerView recyclerView;
 
     private EditText campoId,campoNombre,correo,direccion,telefono;
 
@@ -112,7 +111,7 @@ public class RegistroDependientesActivity extends AppCompatActivity {
 
                 UsuarioVO usuarioVO2= (UsuarioVO)getIntent().getSerializableExtra("usuario");
 
-                    new insertarDatos().
+                    new insertarDatosPedentiente().
                             execute("http://10.0.3.2/vitalapp/insertarDependiente.php?identificacion="+campoId.getText().toString()
                                     +"&nombre="+campoNombre.getText().toString()+"&fecha="+campofecha.getText().toString()
                                     +"&tipo="+listaTipoSangre.getSelectedItem().toString()+"&eps="+listaEPS.getSelectedItem().toString()
@@ -176,7 +175,7 @@ public class RegistroDependientesActivity extends AppCompatActivity {
     }
 
     //metodo para insertar datos dependiente
-    private class insertarDatos extends AsyncTask<String, Void,String> {
+    private class insertarDatosPedentiente extends AsyncTask<String, Void,String> {
 
         @Override
         protected String doInBackground(String... urls) {
@@ -189,7 +188,6 @@ public class RegistroDependientesActivity extends AppCompatActivity {
         protected void onPostExecute(String resultado){
             Toast.makeText(getApplicationContext(),"El dependiente se ha guardado correctamente",Toast.LENGTH_LONG).show();
             Intent irMenu = new Intent(RegistroDependientesActivity.this,ListaDependientesActivity.class);
-            irMenu.putExtra("id",campoId.getText().toString());
             startActivity(irMenu);
         }
     }
