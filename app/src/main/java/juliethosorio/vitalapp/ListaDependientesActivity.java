@@ -86,7 +86,7 @@ public class ListaDependientesActivity extends AppCompatActivity
     public boolean onOptionsItemSelected(MenuItem item){
         switch (item.getItemId()){
             case R.id.salir:
-                Intent login = new Intent( this, LoginActivity.class );
+                Intent login = new Intent( this, Menu_Activity.class );
                 startActivity( login );
                 break;
             case R.id.ayuda:

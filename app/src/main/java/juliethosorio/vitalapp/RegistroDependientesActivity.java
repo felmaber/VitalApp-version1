@@ -109,14 +109,12 @@ public class RegistroDependientesActivity extends AppCompatActivity {
             @Override
             public void onClick(View v) {
 
-                UsuarioVO usuarioVO2= (UsuarioVO)getIntent().getSerializableExtra("usuario");
-
                     new insertarDatosPedentiente().
                             execute("http://10.0.3.2/vitalapp/insertarDependiente.php?identificacion="+campoId.getText().toString()
                                     +"&nombre="+campoNombre.getText().toString()+"&fecha="+campofecha.getText().toString()
                                     +"&tipo="+listaTipoSangre.getSelectedItem().toString()+"&eps="+listaEPS.getSelectedItem().toString()
                                     +"&correo="+correo.getText().toString()+"&telefono="+telefono.getText().toString()
-                                    +"&direccion="+direccion.getText().toString()+"&usuario_fk"+usuarioVO2.getIdentificacion());
+                                    +"&direccion="+direccion.getText().toString());
                 }
         });
 

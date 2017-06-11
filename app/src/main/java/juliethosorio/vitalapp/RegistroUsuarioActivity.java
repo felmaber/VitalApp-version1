@@ -77,9 +77,6 @@ public class RegistroUsuarioActivity  extends AppCompatActivity  {
             campoMedicamentos=(EditText)findViewById(R.id.campoMedicamentos);
 
             btnGuardar=(Button) findViewById(R.id.btnRegistrar);
-            btnAgregarCondicion=(Button)findViewById(R.id.btnAgregar);
-            btnsalir=(Button)findViewById(R.id.btnSalir);
-
 
             listaTipoSangre=(Spinner)findViewById(R.id.campotipoSangre);
             listaEPS=(Spinner)findViewById(R.id.cbEps);
