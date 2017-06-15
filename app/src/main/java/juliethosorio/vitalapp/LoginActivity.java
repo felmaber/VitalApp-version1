@@ -74,7 +74,7 @@ public class LoginActivity extends AppCompatActivity {
                     Toast.makeText(getApplicationContext(),"Ingrese Usuario y Contraseña",Toast.LENGTH_SHORT).show();
                 }
                 else{
-                ConsultaPass("http://10.0.2.2/vitalapp/login.php?user="+txtUsuario.getText().toString());
+                ConsultaPass("http://192.168.50.106/vitalapp/login.php?user="+txtUsuario.getText().toString());
                 }
                 break;
         }

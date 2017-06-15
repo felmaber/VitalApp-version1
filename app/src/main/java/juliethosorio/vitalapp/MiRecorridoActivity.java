@@ -2,9 +2,9 @@ package juliethosorio.vitalapp;
 
 import android.content.Intent;
 import android.net.Uri;
-import android.support.design.widget.FloatingActionButton;
 import android.support.design.widget.Snackbar;
 import android.support.v4.app.FragmentTransaction;
+import android.support.v7.app.AlertDialog;
 import android.support.v7.app.AppCompatActivity;
 import android.support.v7.widget.Toolbar;
 
@@ -21,6 +21,12 @@ import android.view.ViewGroup;
 
 import android.widget.Button;
 import android.widget.TextView;
+import android.widget.Toast;
+
+import com.getbase.floatingactionbutton.FloatingActionButton;
+import com.getbase.floatingactionbutton.FloatingActionsMenu;
+import com.google.zxing.integration.android.IntentIntegrator;
+import com.google.zxing.integration.android.IntentResult;
 
 public class MiRecorridoActivity extends AppCompatActivity implements UnoFragment.OnFragmentInteractionListener,DosFragment.OnFragmentInteractionListener, TresFragment.OnFragmentInteractionListener {
 
@@ -42,6 +48,38 @@ public class MiRecorridoActivity extends AppCompatActivity implements UnoFragmen
 
         mViewPager = (ViewPager) findViewById(R.id.container);
         mViewPager.setAdapter(mSectionsPagerAdapter);
+
+        final FloatingActionsMenu fbmultiple = (FloatingActionsMenu)findViewById(R.id.fbmultiple);
+        final FloatingActionButton btnQRsplash = (FloatingActionButton)findViewById(R.id.btnQRsplash);
+        final FloatingActionButton llamarContactosplash = (FloatingActionButton)findViewById(R.id.llamarContactosplash);
+        final FloatingActionButton llamadaEmergencia = (FloatingActionButton)findViewById(R.id.llamadaEmergencia);
+
+        btnQRsplash.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+                llamarContactosplash.setVisibility(View.VISIBLE);
+                fbmultiple.collapse();
+                read();
+            }
+        });
+
+        llamarContactosplash.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+
+                fbmultiple.collapse();
+            }
+
+        });
+
+        llamadaEmergencia.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+
+                fbmultiple.collapse();
+            }
+
+        });
 
 
     }
@@ -142,6 +180,47 @@ public class MiRecorridoActivity extends AppCompatActivity implements UnoFragmen
                 break;
 
         }
+    }
+
+    public void read() {
+        IntentIntegrator integrator = new IntentIntegrator(this);
+
+        integrator.addExtra("SCAN_WIDTH", 800);
+        integrator.addExtra("SCAN_HEIGHT", 800);
+        integrator.addExtra("PROMPT_MESSAGE", "Busque un código para escanear");
+
+        //integrator.initiateScan(IntentIntegrator.QR_CODE_TYPES);
+        integrator.initiateScan();
+    }
+
+    public void onActivityResult(int requestCode, int resultCode, Intent intent) {
+        IntentResult scanResult = IntentIntegrator.parseActivityResult(requestCode, resultCode, intent);
+        String[] contenidoQR;
+        String ExpReg = "[:;]";
+        if (scanResult != null) {
+
+            System.out.println("Información encontrada");
+            contenidoQR = scanResult.getContents().split(ExpReg);
+            if("MECARD".equals(contenidoQR[0].trim())){
+                for(int i=1;i<contenidoQR.length;i++){
+                    System.out.println(contenidoQR[i]);
+                }
+                System.out.println(scanResult.getFormatName());
+                showDialog(scanResult.getContents());
+            }else{
+                Toast.makeText(getApplicationContext(),"El codigo no es valido para VitalAPP",Toast.LENGTH_LONG).show();
+            }
+
+        }
+
+    }
+
+    public void showDialog(String message) {
+        AlertDialog.Builder builder = new AlertDialog.Builder(this);
+        builder.setTitle(R.string.scanning_content);
+        builder.setMessage(message);
+        builder.setPositiveButton(android.R.string.ok, null);
+        builder.show();
     }
 
 }

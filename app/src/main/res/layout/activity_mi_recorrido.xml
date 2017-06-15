@@ -43,7 +43,8 @@
             fab:fab_icon="@drawable/tel"
             app:fabSize="mini"
             fab:fab_colorNormal="#BEF781"
-            fab:fab_title="Llamar Contacto"/>
+            fab:fab_title="Llamar Contacto"
+            android:visibility="gone"/>
 
         <com.getbase.floatingactionbutton.FloatingActionButton
             android:layout_width="wrap_content"
@@ -52,7 +53,8 @@
             fab:fab_icon="@drawable/emergencia"
             app:fabSize="mini"
             fab:fab_colorNormal="#FE2E2E"
-            fab:fab_title="Llamar Emergencias"/>
+            fab:fab_title="Llamar Emergencias"
+            android:visibility="visible"/>
 
     </com.getbase.floatingactionbutton.FloatingActionsMenu>
 

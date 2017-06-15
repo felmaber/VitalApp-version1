@@ -4,6 +4,10 @@
     <string name="title_activity_registro_usuario">RegistroUsuarioActivity</string>
     <string name="title_activity_menu_principal">MenuPrincipal</string>
 
+    <string name="read">Read</string>
+    <string name="write">Write</string>
+    <string name="scanning_content">Scanning content</string>
+
     <string name="navigation_drawer_open">Open navigation drawer</string>
     <string name="navigation_drawer_close">Close navigation drawer</string>
 

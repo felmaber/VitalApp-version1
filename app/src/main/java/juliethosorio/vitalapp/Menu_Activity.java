@@ -4,10 +4,12 @@ import android.content.Intent;
 import android.net.Uri;
 import android.os.AsyncTask;
 import android.os.Bundle;
+import android.provider.ContactsContract;
 import android.support.design.widget.FloatingActionButton;
 import android.support.design.widget.Snackbar;
 import android.support.v4.app.Fragment;
 import android.support.v4.app.FragmentTransaction;
+import android.support.v7.app.AlertDialog;
 import android.util.Log;
 import android.view.View;
 import android.support.design.widget.NavigationView;
@@ -22,6 +24,9 @@ import android.widget.EditText;
 import android.widget.ImageButton;
 import android.widget.TextView;
 import android.widget.Toast;
+
+import com.google.zxing.integration.android.IntentIntegrator;
+import com.google.zxing.integration.android.IntentResult;
 
 import org.json.JSONArray;
 import org.json.JSONException;
@@ -58,8 +63,9 @@ public class Menu_Activity extends AppCompatActivity implements NavigationView.O
         fab.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
-                Snackbar.make(view, "Replace with your own action", Snackbar.LENGTH_LONG)
+                Snackbar.make(view, "LEER QR VITALAPP", Snackbar.LENGTH_LONG)
                         .setAction("Action", null).show();
+                read();
             }
         });
 
@@ -150,8 +156,9 @@ public class Menu_Activity extends AppCompatActivity implements NavigationView.O
         switch (view.getId()){
 
             case R.id.btnCrearQR:
-                Intent intent= new Intent(this,RegistroUsuarioActivity.class);
-                startActivity(intent);
+                //Intent intent= new Intent(this,RegistroUsuarioActivity.class);
+                //startActivity(intent);
+                write();
                 break;
 
             case R.id.btnDependiente:
@@ -241,6 +248,61 @@ public class Menu_Activity extends AppCompatActivity implements NavigationView.O
         }
     }
 
+    public void read() {
+        IntentIntegrator integrator = new IntentIntegrator(this);
+
+        integrator.addExtra("SCAN_WIDTH", 800);
+        integrator.addExtra("SCAN_HEIGHT", 800);
+        integrator.addExtra("PROMPT_MESSAGE", "Busque un código para escanear");
+
+        //integrator.initiateScan(IntentIntegrator.QR_CODE_TYPES);
+        integrator.initiateScan();
+    }
+
+    public void onActivityResult(int requestCode, int resultCode, Intent intent) {
+        IntentResult scanResult = IntentIntegrator.parseActivityResult(requestCode, resultCode, intent);
+        String[] contenidoQR;
+        String ExpReg = "[:;]";
+        if (scanResult != null) {
+
+            System.out.println("Información encontrada");
+            contenidoQR = scanResult.getContents().split(ExpReg);
+            if("MECARD".equals(contenidoQR[0].trim())){
+                for(int i=1;i<contenidoQR.length;i++){
+                    System.out.println(contenidoQR[i]);
+                }
+                System.out.println(scanResult.getFormatName());
+                showDialog(scanResult.getContents());
+            }else{
+                Toast.makeText(getApplicationContext(),"El codigo no es valido para VitalAPP",Toast.LENGTH_LONG).show();
+            }
+
+        }
+
+    }
+
+    public void write() {
+        // CONTACT
+        UsuarioVO usuarioVO2= (UsuarioVO)getIntent().getSerializableExtra("usuario");
+        Bundle bundle = new Bundle();
+        bundle.putString(ContactsContract.Intents.Insert.NAME, usuarioVO2.getNombre());
+        bundle.putString(ContactsContract.Intents.Insert.COMPANY, "ID_VitalAPP");
+        bundle.putString(ContactsContract.Intents.Insert.POSTAL, usuarioVO2.getIdentificacion());
+        bundle.putString(ContactsContract.Intents.Insert.EMAIL,usuarioVO2.getContacto());
+        bundle.putString(ContactsContract.Intents.Insert.PHONE, usuarioVO2.getTelContacto());
+
+        IntentIntegrator integrator = new IntentIntegrator(this);
+        integrator.addExtra("ENCODE_DATA", bundle);
+        integrator.shareText(bundle.toString(), "CONTACT_TYPE");
+    }
+
+    public void showDialog(String message) {
+        AlertDialog.Builder builder = new AlertDialog.Builder(this);
+        builder.setTitle(R.string.scanning_content);
+        builder.setMessage(message);
+        builder.setPositiveButton(android.R.string.ok, null);
+        builder.show();
+    }
 
     //metodo para consultar datos usuario
     private class consultarDatos extends AsyncTask<String, Void,String> {
