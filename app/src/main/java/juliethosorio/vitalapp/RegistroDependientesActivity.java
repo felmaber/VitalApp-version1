@@ -37,13 +37,20 @@ import java.util.Calendar;
 public class RegistroDependientesActivity extends AppCompatActivity {
 
     private int año,mes,dia;
-    private EditText campofecha;
+    private EditText campofecha,campoCondicion,campoEnfermedad,campoMedicamentos;
     private Button btnFecha,Registrar;
     private  static final int dialogo=0;
     private static DatePickerDialog.OnDateSetListener selectorFecha;
     private CheckBox opcional;
     private GridLayout condicionMedica;
     private Spinner listaTipoSangre, listaEPS;
+    private String idUND;
+    private String rolUND;
+    private String NomGrupo;
+    private String idGrupo;
+    private String rolGrupoND;
+    private String rolGrupoD;
+    private String nombreUND, telUND,correUND;
 
     private EditText campoId,campoNombre,correo,direccion,telefono;
 
@@ -61,6 +68,24 @@ public class RegistroDependientesActivity extends AppCompatActivity {
         correo=(EditText)findViewById(R.id.campoCorreo);
         direccion=(EditText)findViewById(R.id.campodireccion);
         telefono=(EditText)findViewById(R.id.campotelefono);
+
+        campoCondicion=(EditText)findViewById(R.id.campoCondicion);
+        campoEnfermedad=(EditText)findViewById(R.id.campoEnfermedad);
+        campoMedicamentos=(EditText)findViewById(R.id.campoMedicamentos);
+
+        UsuarioVO usuarioVODep= (UsuarioVO)getIntent().getSerializableExtra("usuario");
+        idUND=(usuarioVODep.getIdentificacion());
+        nombreUND=(usuarioVODep.getNombre());
+        telUND=(usuarioVODep.getTelefono());
+        correUND=(usuarioVODep.getCorreo());
+
+        rolUND="DEPENDIENTE";
+        NomGrupo="GRUPO FAMILIA";
+        idGrupo= idUND;
+        rolGrupoD="MIEMBRO";
+        rolGrupoND="ADMIN";
+
+
 
         Registrar=(Button)findViewById(R.id.btnRegistrar);
 
@@ -109,12 +134,25 @@ public class RegistroDependientesActivity extends AppCompatActivity {
             @Override
             public void onClick(View v) {
 
-                    new insertarDatosPedentiente().
-                            execute("http://10.0.3.2/vitalapp/insertarDependiente.php?identificacion="+campoId.getText().toString()
+                    new insertarDatosPedentiente().execute("http://10.0.2.2/vitalapp/insertarDependiente.php?identificacion="+campoId.getText().toString()
                                     +"&nombre="+campoNombre.getText().toString()+"&fecha="+campofecha.getText().toString()
                                     +"&tipo="+listaTipoSangre.getSelectedItem().toString()+"&eps="+listaEPS.getSelectedItem().toString()
-                                    +"&correo="+correo.getText().toString()+"&telefono="+telefono.getText().toString()
-                                    +"&direccion="+direccion.getText().toString());
+                                    +"&correo="+correo.getText().toString()+"&direccion="+direccion.getText().toString()
+                                    +"&telefono="+telefono.getText().toString()
+                                    +"&tipo="+listaTipoSangre.getSelectedItem().toString()
+                                    +"&eps="+listaEPS.getSelectedItem().toString()
+                                    +"&contacto="+nombreUND.toString()
+                                    +"&tel_contacto="+telUND.toString()
+                                    +"&condicion="+campoCondicion.getText().toString()
+                                    +"&enfermedad="+campoEnfermedad.getText().toString()
+                                    +"&medicamentos="+campoMedicamentos.getText().toString()
+                                    +"&rolUsuario="+rolUND.toString()
+                                    +"&idUND="+idUND.toString()
+                                    +"&NomGrupo="+NomGrupo.toString()
+                                    +"&idGrupo="+idGrupo.toString()
+                                    +"&rolGrupoD="+rolGrupoD.toString()
+                                    +"&rolGrupoND="+rolGrupoND.toString()
+                            );
                 }
         });
 

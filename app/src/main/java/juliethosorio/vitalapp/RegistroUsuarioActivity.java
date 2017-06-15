@@ -41,6 +41,7 @@ import static juliethosorio.vitalapp.R.id.campotipoSangre;
 public class RegistroUsuarioActivity  extends AppCompatActivity  {
 
     private int año,mes,dia;
+    private String id;
     private EditText campofecha, campoId,campoNombre,campoCorreo,campoTelefono;
     private EditText campoDireccion,campoNombreContacto,campoTelContacto,campoUsuario,campoContraseña,campoContraseña2;
     private EditText campoCondicion,campoEnfermedad,campoMedicamentos;
@@ -71,6 +72,8 @@ public class RegistroUsuarioActivity  extends AppCompatActivity  {
             campoUsuario=(EditText)findViewById(R.id.txtUsuario);
             campoContraseña=(EditText)findViewById(R.id.txtContraseña);
             campoContraseña2=(EditText)findViewById(R.id.txtConfirmarContraseña);
+            id="NO DEPENDIENTE";
+
 
             campoCondicion=(EditText)findViewById(R.id.campoCondicion);
             campoEnfermedad=(EditText)findViewById(R.id.campoEnfermedad);
@@ -126,14 +129,17 @@ public class RegistroUsuarioActivity  extends AppCompatActivity  {
 
                     if (campoContraseña.getText().toString().equals(campoContraseña2.getText().toString()))
                     {
-                        new insertarDatos().execute("http://10.0.3.2/vitalapp/ingresarUsuario.php?identificacion="+campoId.getText().toString()
-                                        +"&nombre="+campoNombre.getText().toString()+"&fecha="+campofecha.getText().toString()
-                                        +"&tipo="+listaTipoSangre.getSelectedItem().toString()+"&eps="+listaEPS.getSelectedItem().toString()
-                                        +"&correo="+campoCorreo.getText().toString()+"&telefono="+campoTelefono.getText().toString()
-                                        +"&direccion="+campoDireccion.getText().toString()+"&contacto="+campoNombreContacto.getText().toString()
-                                        +"&tel_contacto="+campoTelContacto.getText().toString()+"&user="+campoUsuario.getText().toString()
-                                        +"&pass="+campoContraseña.getText().toString()+"&condicion="+campoCondicion.getText().toString()
-                                        +"&enfermedad="+campoEnfermedad.getText().toString()+"&medicamentos="+campoMedicamentos.getText().toString());
+
+                     new insertarDatos().execute("http://10.0.2.2/vitalapp/ingresarUsuario.php?identificacion="+campoId.getText().toString()
+                            +"&nombre="+campoNombre.getText().toString()+"&fecha="+campofecha.getText().toString()
+                            +"&tipo="+listaTipoSangre.getSelectedItem().toString()+"&eps="+listaEPS.getSelectedItem().toString()
+                            +"&correo="+campoCorreo.getText().toString()+"&telefono="+campoTelefono.getText().toString()
+                            +"&direccion="+campoDireccion.getText().toString()+"&contacto="+campoNombreContacto.getText().toString()
+                            +"&tel_contacto="+campoTelContacto.getText().toString()+"&user="+campoUsuario.getText().toString()
+                            +"&pass="+campoContraseña.getText().toString()+"&condicion="+campoCondicion.getText().toString()
+                            +"&enfermedad="+campoEnfermedad.getText().toString()+"&medicamentos="+campoMedicamentos.getText().toString()
+                            +"&rolUsuario="+id.toString());
+
                     }
                     else{
 

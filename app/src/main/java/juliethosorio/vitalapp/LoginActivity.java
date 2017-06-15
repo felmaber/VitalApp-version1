@@ -74,7 +74,7 @@ public class LoginActivity extends AppCompatActivity {
                     Toast.makeText(getApplicationContext(),"Ingrese Usuario y Contraseña",Toast.LENGTH_SHORT).show();
                 }
                 else{
-                ConsultaPass("http://10.0.3.2/vitalapp/login.php?user="+txtUsuario.getText().toString());
+                ConsultaPass("http://10.0.2.2/vitalapp/login.php?user="+txtUsuario.getText().toString());
                 }
                 break;
         }
@@ -96,17 +96,17 @@ public class LoginActivity extends AppCompatActivity {
                     usuarioVO.setFecha(jsonArray.getString(2));
                     usuarioVO.setTipoSangre(jsonArray.getString(3));
                     usuarioVO.setEps(jsonArray.getString(4));
-                    usuarioVO.setCorreo(jsonArray.getString(5));
-                    usuarioVO.setTelefono(jsonArray.getString(6));
+                    usuarioVO.setCorreo(jsonArray.getString(6));
+                    usuarioVO.setTelefono(jsonArray.getString(5));
                     usuarioVO.setDireccion(jsonArray.getString(7));
                     usuarioVO.setContacto(jsonArray.getString(8));
                     usuarioVO.setTelContacto(jsonArray.getString(9));
-                    usuarioVO.setCondicion(jsonArray.getString(12));
-                    usuarioVO.setEnfermedad(jsonArray.getString(13));
-                    usuarioVO.setMedicamentos(jsonArray.getString(14));
+                    usuarioVO.setCondicion(jsonArray.getString(10));
+                    usuarioVO.setEnfermedad(jsonArray.getString(11));
+                    usuarioVO.setMedicamentos(jsonArray.getString(12));
 
 
-                    String pass = jsonArray.getString(11);
+                    String pass = jsonArray.getString(15);
                     if(pass.equals(txtContraseña.getText().toString())){
 
                         Toast.makeText(getApplicationContext(),"Bienvenido",Toast.LENGTH_SHORT).show();
