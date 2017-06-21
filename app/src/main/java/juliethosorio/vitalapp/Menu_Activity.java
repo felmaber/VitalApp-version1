@@ -1,14 +1,16 @@
 package juliethosorio.vitalapp;
 
 import android.content.Intent;
+import android.graphics.Bitmap;
+import android.media.MediaScannerConnection;
 import android.net.Uri;
 import android.os.AsyncTask;
 import android.os.Bundle;
+import android.os.Environment;
 import android.provider.ContactsContract;
 import android.support.design.widget.FloatingActionButton;
 import android.support.design.widget.Snackbar;
 import android.support.v4.app.Fragment;
-import android.support.v4.app.FragmentTransaction;
 import android.support.v7.app.AlertDialog;
 import android.util.Log;
 import android.view.View;
@@ -20,8 +22,6 @@ import android.support.v7.app.AppCompatActivity;
 import android.support.v7.widget.Toolbar;
 import android.view.Menu;
 import android.view.MenuItem;
-import android.widget.EditText;
-import android.widget.ImageButton;
 import android.widget.TextView;
 import android.widget.Toast;
 
@@ -31,6 +31,9 @@ import com.google.zxing.integration.android.IntentResult;
 import org.json.JSONArray;
 import org.json.JSONException;
 
+import java.io.ByteArrayOutputStream;
+import java.io.File;
+import java.io.FileOutputStream;
 import java.io.IOException;
 import java.io.InputStream;
 import java.io.InputStreamReader;
@@ -38,6 +41,12 @@ import java.io.Reader;
 import java.io.UnsupportedEncodingException;
 import java.net.HttpURLConnection;
 import java.net.URL;
+import java.util.Calendar;
+
+import com.google.zxing.WriterException;
+import com.google.zxing.BarcodeFormat;
+import com.google.zxing.MultiFormatWriter;
+import com.google.zxing.common.BitMatrix;
 
 
 public class Menu_Activity extends AppCompatActivity implements NavigationView.OnNavigationItemSelectedListener
@@ -45,6 +54,11 @@ public class Menu_Activity extends AppCompatActivity implements NavigationView.O
 
     MenuFragment menuFragment;
     Historial_IncidenciasFragment miHistorial;
+
+    public final static int WHITE = 0xFFFFFFFF;
+    public final static int BLACK = 0xFF000000;
+    public final static int WIDTH = 400;
+    public final static int HEIGHT = 400;
 
 
     @Override
@@ -283,6 +297,9 @@ public class Menu_Activity extends AppCompatActivity implements NavigationView.O
 
     public void write() {
         // CONTACT
+        Intent intent = new Intent();
+        intent.setAction("com.google.zxing.client.android.ENCODE");
+
         UsuarioVO usuarioVO2= (UsuarioVO)getIntent().getSerializableExtra("usuario");
         Bundle bundle = new Bundle();
         bundle.putString(ContactsContract.Intents.Insert.NAME, usuarioVO2.getNombre());
@@ -294,6 +311,70 @@ public class Menu_Activity extends AppCompatActivity implements NavigationView.O
         IntentIntegrator integrator = new IntentIntegrator(this);
         integrator.addExtra("ENCODE_DATA", bundle);
         integrator.shareText(bundle.toString(), "CONTACT_TYPE");
+        //-----------
+        intent.putExtra("ENCODE_TYPE", "CONTACT_TYPE");
+        intent.putExtra("ENCODE_DATA", bundle.toString());
+        try {
+            Bitmap bitmap = encodeAsBitmap(bundle.toString());
+            System.out.println("Este es el archivo bitmap "+bitmap);
+            saveImage(bitmap);
+            //imageView.setImageBitmap(bitmap);
+        } catch (WriterException e) {
+            e.printStackTrace();
+        }
+    }
+
+    private Bitmap encodeAsBitmap(String str) throws WriterException {
+        BitMatrix result;
+        try {
+            result = new MultiFormatWriter().encode(str, BarcodeFormat.QR_CODE, WIDTH, HEIGHT, null);
+        } catch (IllegalArgumentException iae) {
+            // Unsupported format
+            return null;
+        }
+
+        int width = result.getWidth();
+        int height = result.getHeight();
+        int[] pixels = new int[width * height];
+        for (int y = 0; y < height; y++) {
+            int offset = y * width;
+            for (int x = 0; x < width; x++) {
+                pixels[offset + x] = result.get(x, y) ? BLACK : WHITE;
+            }
+        }
+
+        Bitmap bitmap = Bitmap.createBitmap(width, height, Bitmap.Config.ARGB_8888);
+        bitmap.setPixels(pixels, 0, width, 0, 0, width, height);
+        return bitmap;
+    }
+
+    public String saveImage(Bitmap myBitmap) {
+
+        ByteArrayOutputStream bytes = new ByteArrayOutputStream();
+
+        myBitmap.compress(Bitmap.CompressFormat.JPEG, 90, bytes);
+
+        String IMAGE_DIRECTORY = "/QRVitalApp";
+
+        File wallpaperDirectory = new File( Environment.getExternalStorageDirectory() + IMAGE_DIRECTORY);
+        // have the object build the directory structure, if needed.
+        if (!wallpaperDirectory.exists()) {
+            Log.d("Directorio fail", "" + wallpaperDirectory.mkdirs());
+            wallpaperDirectory.mkdir();
+        } try {
+            File f = new File(wallpaperDirectory, Calendar.getInstance() .getTimeInMillis() + ".png");
+            f.createNewFile();
+            //give read write permission
+            FileOutputStream fo = new FileOutputStream(f);
+            fo.write(bytes.toByteArray());
+            MediaScannerConnection.scanFile(this, new String[]{f.getPath()}, new String[]{"image/jpeg"}, null);
+            fo.close();
+            Log.d("TAG", "File Saved::--->" + f.getAbsolutePath());
+            return f.getAbsolutePath();
+        } catch (IOException e1) {
+            e1.printStackTrace();
+        }
+        return "";
     }
 
     public void showDialog(String message) {
