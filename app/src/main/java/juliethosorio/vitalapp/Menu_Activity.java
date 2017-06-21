@@ -299,8 +299,12 @@ public class Menu_Activity extends AppCompatActivity implements NavigationView.O
         // CONTACT
         Intent intent = new Intent();
         intent.setAction("com.google.zxing.client.android.ENCODE");
+        String idUsuarioQR = "";
 
         UsuarioVO usuarioVO2= (UsuarioVO)getIntent().getSerializableExtra("usuario");
+
+        idUsuarioQR = usuarioVO2.getIdentificacion();
+
         Bundle bundle = new Bundle();
         bundle.putString(ContactsContract.Intents.Insert.NAME, usuarioVO2.getNombre());
         bundle.putString(ContactsContract.Intents.Insert.COMPANY, "ID_VitalAPP");
@@ -316,9 +320,9 @@ public class Menu_Activity extends AppCompatActivity implements NavigationView.O
         intent.putExtra("ENCODE_DATA", bundle.toString());
         try {
             Bitmap bitmap = encodeAsBitmap(bundle.toString());
-            System.out.println("Este es el archivo bitmap "+bitmap);
+            System.out.println("Este es el archivo bitmap "+bitmap+" Y este el idUsusarioQR "+idUsuarioQR);
+            //insertarCodigoQR("http://192.168.0.18/vitalapp/login.php?user="+idUsuarioQR);
             saveImage(bitmap);
-            //imageView.setImageBitmap(bitmap);
         } catch (WriterException e) {
             e.printStackTrace();
         }
@@ -352,14 +356,14 @@ public class Menu_Activity extends AppCompatActivity implements NavigationView.O
 
         ByteArrayOutputStream bytes = new ByteArrayOutputStream();
 
-        myBitmap.compress(Bitmap.CompressFormat.JPEG, 90, bytes);
+        myBitmap.compress(Bitmap.CompressFormat.PNG, 90, bytes);
 
         String IMAGE_DIRECTORY = "/QRVitalApp";
 
         File wallpaperDirectory = new File( Environment.getExternalStorageDirectory() + IMAGE_DIRECTORY);
         // have the object build the directory structure, if needed.
         if (!wallpaperDirectory.exists()) {
-            Log.d("Directorio fail", "" + wallpaperDirectory.mkdirs());
+            Log.d("Error en directorio", "" + wallpaperDirectory.mkdirs());
             wallpaperDirectory.mkdir();
         } try {
             File f = new File(wallpaperDirectory, Calendar.getInstance() .getTimeInMillis() + ".png");
@@ -367,9 +371,9 @@ public class Menu_Activity extends AppCompatActivity implements NavigationView.O
             //give read write permission
             FileOutputStream fo = new FileOutputStream(f);
             fo.write(bytes.toByteArray());
-            MediaScannerConnection.scanFile(this, new String[]{f.getPath()}, new String[]{"image/jpeg"}, null);
+            MediaScannerConnection.scanFile(this, new String[]{f.getPath()}, new String[]{"image/png"}, null);
             fo.close();
-            Log.d("TAG", "File Saved::--->" + f.getAbsolutePath());
+            Log.d("TAG", "Archivo Almacenado::--->" + f.getAbsolutePath());
             return f.getAbsolutePath();
         } catch (IOException e1) {
             e1.printStackTrace();
@@ -386,7 +390,7 @@ public class Menu_Activity extends AppCompatActivity implements NavigationView.O
     }
 
     //metodo para consultar datos usuario
-    private class consultarDatos extends AsyncTask<String, Void,String> {
+    private class insertarCodigoQR extends AsyncTask<String, Void,String> {
 
         @Override
         protected String doInBackground(String... urls) {
@@ -398,7 +402,7 @@ public class Menu_Activity extends AppCompatActivity implements NavigationView.O
         }
         protected void onPostExecute(String resultado){
             JSONArray jsonArray=null;
-            TextView id,nom,fecha,tipo,eps,correo,tel,dir,contact,telcon;
+           /* TextView id,nom,fecha,tipo,eps,correo,tel,dir,contact,telcon;
 
             id=(TextView)findViewById(R.id.campoIdPerfil);
             nom=(TextView)findViewById(R.id.campoNombresPerfil);
@@ -409,11 +413,11 @@ public class Menu_Activity extends AppCompatActivity implements NavigationView.O
             tel= (TextView) findViewById(R.id.campotelefonoPerfil);
             dir= (TextView) findViewById(R.id.campoDireccionPerfil);
             contact= (TextView) findViewById(R.id.campoContactoPerfil);
-            telcon= (TextView) findViewById(R.id.campotelContactoPerfil);
+            telcon= (TextView) findViewById(R.id.campotelContactoPerfil);*/
 
             try {
                 jsonArray=new JSONArray(resultado);
-                id.setText(jsonArray.getString(0));
+               /* id.setText(jsonArray.getString(0));
                 nom.setText(jsonArray.getString(1));
                 fecha.setText(jsonArray.getString(2));
                 tipo.setText(jsonArray.getString(3));
@@ -422,7 +426,7 @@ public class Menu_Activity extends AppCompatActivity implements NavigationView.O
                 tel.setText(jsonArray.getString(6));
                 dir.setText(jsonArray.getString(7));
                 contact.setText(jsonArray.getString(8));
-                telcon.setText(jsonArray.getString(9));
+                telcon.setText(jsonArray.getString(9));*/
 
             }catch (JSONException e){
                 e.printStackTrace();
