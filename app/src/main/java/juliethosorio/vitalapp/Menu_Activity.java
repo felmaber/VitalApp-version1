@@ -59,6 +59,7 @@ public class Menu_Activity extends AppCompatActivity implements NavigationView.O
     public final static int BLACK = 0xFF000000;
     public final static int WIDTH = 400;
     public final static int HEIGHT = 400;
+    //coments
 
 
     @Override
