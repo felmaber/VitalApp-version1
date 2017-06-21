@@ -130,7 +130,7 @@ public class RegistroUsuarioActivity  extends AppCompatActivity  {
                     if (campoContraseña.getText().toString().equals(campoContraseña2.getText().toString()))
                     {
 
-                     new insertarDatos().execute("http://10.0.2.2/vitalapp/ingresarUsuario.php?identificacion="+campoId.getText().toString()
+                     new insertarDatos().execute("http://192.168.0.17/vitalapp/ingresarUsuario.php?identificacion="+campoId.getText().toString()
                             +"&nombre="+campoNombre.getText().toString()+"&fecha="+campofecha.getText().toString()
                             +"&tipo="+listaTipoSangre.getSelectedItem().toString()+"&eps="+listaEPS.getSelectedItem().toString()
                             +"&correo="+campoCorreo.getText().toString()+"&telefono="+campoTelefono.getText().toString()

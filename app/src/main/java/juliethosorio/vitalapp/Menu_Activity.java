@@ -25,6 +25,12 @@ import android.view.MenuItem;
 import android.widget.TextView;
 import android.widget.Toast;
 
+import com.android.volley.Request;
+import com.android.volley.RequestQueue;
+import com.android.volley.Response;
+import com.android.volley.VolleyError;
+import com.android.volley.toolbox.StringRequest;
+import com.android.volley.toolbox.Volley;
 import com.google.zxing.integration.android.IntentIntegrator;
 import com.google.zxing.integration.android.IntentResult;
 
@@ -54,12 +60,14 @@ public class Menu_Activity extends AppCompatActivity implements NavigationView.O
 
     MenuFragment menuFragment;
     Historial_IncidenciasFragment miHistorial;
+    JSONArray jsonArray;
+
 
     public final static int WHITE = 0xFFFFFFFF;
     public final static int BLACK = 0xFF000000;
     public final static int WIDTH = 400;
     public final static int HEIGHT = 400;
-    //comentsº< bbbb
+
 
 
     @Override
@@ -283,10 +291,16 @@ public class Menu_Activity extends AppCompatActivity implements NavigationView.O
             System.out.println("Información encontrada");
             contenidoQR = scanResult.getContents().split(ExpReg);
             if("MECARD".equals(contenidoQR[0].trim())){
-                for(int i=1;i<contenidoQR.length;i++){
-                    System.out.println(contenidoQR[i]);
-                }
-                System.out.println(scanResult.getFormatName());
+
+                String idUL=contenidoQR[6];
+                System.out.println("usuario leido: "+idUL);
+
+                UsuarioVO usuarioVO= (UsuarioVO)getIntent().getSerializableExtra("usuario");
+                String idUR=(usuarioVO.getIdentificacion());
+                System.out.println("usuario reporta: "+idUR);
+
+                ConsultaUL("http://192.168.0.17/vitalapp/incidente.php?user="+idUL+"&userReport="+idUR);
+
                 showDialog(scanResult.getContents());
             }else{
                 Toast.makeText(getApplicationContext(),"El codigo no es valido para VitalAPP",Toast.LENGTH_LONG).show();
@@ -444,6 +458,36 @@ public class Menu_Activity extends AppCompatActivity implements NavigationView.O
         char[] buffer=new char[len];
         leer.read(buffer);
         return new String(buffer);
+    }
+
+
+    private void ConsultaUL(String URL) {
+
+        Log.i("url",""+URL);
+
+        RequestQueue queue = Volley.newRequestQueue(this);
+        StringRequest stringRequest =  new StringRequest(Request.Method.GET, URL,  new Response.Listener<String>(){
+            @Override
+            public void onResponse(String response) {
+                System.out.println("entra a consulta");
+                try {
+                    jsonArray = new JSONArray(response);
+                    String idUI = jsonArray.getString(0);
+                    System.out.println("usuario Interno: "+idUI);
+                    //String rolGrupo = jsonArray.getString(2);
+                } catch (JSONException e) {
+                    e.printStackTrace();
+                    Toast.makeText(getApplicationContext(),"El usuario no existe en la base de datos",Toast.LENGTH_LONG).show();
+                }
+
+
+            }
+        }, new Response.ErrorListener() {
+            @Override
+            public void onErrorResponse(VolleyError error) {
+
+            }});
+        queue.add(stringRequest);
     }
 
 }

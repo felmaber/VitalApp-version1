@@ -134,7 +134,7 @@ public class RegistroDependientesActivity extends AppCompatActivity {
             @Override
             public void onClick(View v) {
 
-                    new insertarDatosPedentiente().execute("http://10.0.2.2/vitalapp/insertarDependiente.php?identificacion="+campoId.getText().toString()
+                    new insertarDatosPedentiente().execute("http://192.168.0.17/vitalapp/insertarDependiente.php?identificacion="+campoId.getText().toString()
                                     +"&nombre="+campoNombre.getText().toString()+"&fecha="+campofecha.getText().toString()
                                     +"&tipo="+listaTipoSangre.getSelectedItem().toString()+"&eps="+listaEPS.getSelectedItem().toString()
                                     +"&correo="+correo.getText().toString()+"&direccion="+direccion.getText().toString()
