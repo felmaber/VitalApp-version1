@@ -299,7 +299,7 @@ public class Menu_Activity extends AppCompatActivity implements NavigationView.O
                 String idUR=(usuarioVO.getIdentificacion());
                 System.out.println("usuario reporta: "+idUR);
 
-                ConsultaUL("http://192.168.0.17/vitalapp/incidente.php?user="+idUL+"&userReport="+idUR);
+                ConsultaUL("http://192.168.0.11/vitalapp/incidente.php?user="+idUL+"&userReport="+idUR);
 
                 showDialog(scanResult.getContents());
             }else{
@@ -336,11 +336,15 @@ public class Menu_Activity extends AppCompatActivity implements NavigationView.O
         try {
             Bitmap bitmap = encodeAsBitmap(bundle.toString());
             System.out.println("Este es el archivo bitmap "+bitmap+" Y este el idUsusarioQR "+idUsuarioQR);
-            //insertarCodigoQR("http://192.168.0.18/vitalapp/login.php?user="+idUsuarioQR);
             saveImage(bitmap);
+
+            new insertarCodigoQR().execute("http://192.168.0.17/vitalapp/ingresarQR.php?identificacion="+idUsuarioQR+"&imagenQR="+bitmap);
+
         } catch (WriterException e) {
             e.printStackTrace();
         }
+
+
     }
 
     private Bitmap encodeAsBitmap(String str) throws WriterException {
@@ -415,8 +419,8 @@ public class Menu_Activity extends AppCompatActivity implements NavigationView.O
                 return "Unable to retrieve web page. URL may be invalid.";
             }
         }
-        protected void onPostExecute(String resultado){
-            JSONArray jsonArray=null;
+       // protected void onPostExecute(String resultado){
+         //   JSONArray jsonArray=null;
            /* TextView id,nom,fecha,tipo,eps,correo,tel,dir,contact,telcon;
 
             id=(TextView)findViewById(R.id.campoIdPerfil);
@@ -430,8 +434,8 @@ public class Menu_Activity extends AppCompatActivity implements NavigationView.O
             contact= (TextView) findViewById(R.id.campoContactoPerfil);
             telcon= (TextView) findViewById(R.id.campotelContactoPerfil);*/
 
-            try {
-                jsonArray=new JSONArray(resultado);
+           // try {
+             //   jsonArray=new JSONArray(resultado);
                /* id.setText(jsonArray.getString(0));
                 nom.setText(jsonArray.getString(1));
                 fecha.setText(jsonArray.getString(2));
@@ -443,10 +447,10 @@ public class Menu_Activity extends AppCompatActivity implements NavigationView.O
                 contact.setText(jsonArray.getString(8));
                 telcon.setText(jsonArray.getString(9));*/
 
-            }catch (JSONException e){
-                e.printStackTrace();
-            }
-        }
+            //}catch (JSONException e){
+              //  e.printStackTrace();
+     //       }
+       // }
     }
 
     //lee el inputstream y lo convierte en un string
@@ -489,5 +493,6 @@ public class Menu_Activity extends AppCompatActivity implements NavigationView.O
             }});
         queue.add(stringRequest);
     }
+
 
 }
