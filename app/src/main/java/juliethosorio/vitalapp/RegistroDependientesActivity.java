@@ -24,6 +24,16 @@ import android.widget.GridLayout;
 import android.widget.Spinner;
 import android.widget.Toast;
 
+import com.android.volley.Request;
+import com.android.volley.RequestQueue;
+import com.android.volley.Response;
+import com.android.volley.VolleyError;
+import com.android.volley.toolbox.StringRequest;
+import com.android.volley.toolbox.Volley;
+
+import org.json.JSONArray;
+import org.json.JSONException;
+
 import java.io.IOException;
 import java.io.InputStream;
 import java.io.InputStreamReader;
@@ -35,7 +45,7 @@ import java.util.ArrayList;
 import java.util.Calendar;
 
 public class RegistroDependientesActivity extends AppCompatActivity {
-
+    JSONArray jsonArray;
     private int año,mes,dia;
     private EditText campofecha,campoCondicion,campoEnfermedad,campoMedicamentos;
     private Button btnFecha,Registrar;
@@ -134,25 +144,24 @@ public class RegistroDependientesActivity extends AppCompatActivity {
             @Override
             public void onClick(View v) {
 
-                    new insertarDatosPedentiente().execute("http://192.168.0.17/vitalapp/insertarDependiente.php?identificacion="+campoId.getText().toString()
+                    insertarDatosPedentiente("http://192.168.0.17/vitalapp/insertarDependiente.php?identificacion="+campoId.getText().toString()
                                     +"&nombre="+campoNombre.getText().toString()+"&fecha="+campofecha.getText().toString()
                                     +"&tipo="+listaTipoSangre.getSelectedItem().toString()+"&eps="+listaEPS.getSelectedItem().toString()
                                     +"&correo="+correo.getText().toString()+"&direccion="+direccion.getText().toString()
                                     +"&telefono="+telefono.getText().toString()
                                     +"&tipo="+listaTipoSangre.getSelectedItem().toString()
                                     +"&eps="+listaEPS.getSelectedItem().toString()
-                                    +"&contacto="+nombreUND.toString()
-                                    +"&tel_contacto="+telUND.toString()
+                                    +"&contacto="+nombreUND
+                                    +"&tel_contacto="+telUND
                                     +"&condicion="+campoCondicion.getText().toString()
                                     +"&enfermedad="+campoEnfermedad.getText().toString()
                                     +"&medicamentos="+campoMedicamentos.getText().toString()
-                                    +"&rolUsuario="+rolUND.toString()
-                                    +"&idUND="+idUND.toString()
-                                    +"&NomGrupo="+NomGrupo.toString()
-                                    +"&idGrupo="+idGrupo.toString()
-                                    +"&rolGrupoD="+rolGrupoD.toString()
-                                    +"&rolGrupoND="+rolGrupoND.toString()
-                            );
+                                    +"&rolUsuario="+rolUND
+                                    +"&idUND="+idUND
+                                    +"&NomGrupo="+NomGrupo
+                                    +"&idGrupo="+idGrupo
+                                    +"&rolGrupoD="+rolGrupoD
+                                    +"&rolGrupoND="+rolGrupoND);
                 }
         });
 
@@ -211,26 +220,41 @@ public class RegistroDependientesActivity extends AppCompatActivity {
     }
 
     //metodo para insertar datos dependiente
-    private class insertarDatosPedentiente extends AsyncTask<String, Void,String> {
+    private void insertarDatosPedentiente(String URL) {
 
-        @Override
-        protected String doInBackground(String... urls) {
-            try{
-                return downloadUrl(urls[0]);
-            }catch (IOException e){
-                return "Unable to retrieve web page. URL may be invalid.";
+        Log.i("url",""+URL);
+
+        RequestQueue queue = Volley.newRequestQueue(this);
+        StringRequest stringRequest =  new StringRequest(Request.Method.GET, URL,  new Response.Listener<String>(){
+            @Override
+            public void onResponse(String response) {
+
+                try {
+                    jsonArray = new JSONArray(response);
+                    Toast.makeText(getApplicationContext(),"El usuario ya existe en la base de datos",Toast.LENGTH_LONG).show();
+
+                } catch (JSONException e) {
+                    e.printStackTrace();
+                    Toast.makeText(getApplicationContext(),"El dependiente se ha guardado correctamente",Toast.LENGTH_LONG).show();
+                    Intent irMenu = new Intent(RegistroDependientesActivity.this,ListaDependientesActivity.class);
+                    startActivity(irMenu);
+                }
             }
-        }
-        protected void onPostExecute(String resultado){
-            Toast.makeText(getApplicationContext(),"El dependiente se ha guardado correctamente",Toast.LENGTH_LONG).show();
-            Intent irMenu = new Intent(RegistroDependientesActivity.this,ListaDependientesActivity.class);
-            startActivity(irMenu);
-        }
+        }, new Response.ErrorListener() {
+            @Override
+            public void onErrorResponse(VolleyError error) {
+
+            }});
+        queue.add(stringRequest);
     }
+
+
+
+
 
 // metodo para llamar la url de conexion
 
-    private String downloadUrl(String miurl) throws IOException{
+   /* private String downloadUrl(String miurl) throws IOException{
         InputStream inputStream=null;
 
         int len=500;
@@ -257,18 +281,18 @@ public class RegistroDependientesActivity extends AppCompatActivity {
                 inputStream.close();
             }
         }
-    }
+    }*/
 
     //lee el inputstream y lo convierte en un string
 
-    private String readIt(InputStream inputStream, int len)
+    /*private String readIt(InputStream inputStream, int len)
             throws IOException, UnsupportedEncodingException {
         Reader leer=null;
         leer=new InputStreamReader(inputStream, "UTF-8");
         char[] buffer=new char[len];
         leer.read(buffer);
         return new String(buffer);
-    }
+    }*/
 
 
 }

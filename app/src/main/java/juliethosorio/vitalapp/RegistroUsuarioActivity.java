@@ -3,6 +3,7 @@ package juliethosorio.vitalapp;
 import android.app.DatePickerDialog;
 import android.app.Dialog;
 import android.content.Intent;
+import android.net.Uri;
 import android.os.AsyncTask;
 import android.os.Bundle;
 import android.support.v7.app.AppCompatActivity;
@@ -21,6 +22,20 @@ import android.widget.EditText;
 import android.widget.GridLayout;
 import android.widget.Spinner;
 import android.widget.Toast;
+import android.widget.AdapterView;
+import android.view.ViewGroup;
+
+import com.android.volley.Request;
+import com.android.volley.RequestQueue;
+import com.android.volley.Response;
+import com.android.volley.VolleyError;
+import com.android.volley.toolbox.StringRequest;
+import com.android.volley.toolbox.Volley;
+
+import org.json.JSONArray;
+import org.json.JSONException;
+
+import java.lang.Object;
 
 import java.io.IOException;
 import java.io.InputStream;
@@ -39,7 +54,7 @@ import static juliethosorio.vitalapp.R.id.campotipoSangre;
  */
 
 public class RegistroUsuarioActivity  extends AppCompatActivity  {
-
+    JSONArray jsonArray;
     private int año,mes,dia;
     private String id;
     private EditText campofecha, campoId,campoNombre,campoCorreo,campoTelefono;
@@ -126,11 +141,11 @@ public class RegistroUsuarioActivity  extends AppCompatActivity  {
             btnGuardar.setOnClickListener(new View.OnClickListener() {
                 @Override
                 public void onClick(View v) {
-
+                    System.out.println("onclik:");
                     if (campoContraseña.getText().toString().equals(campoContraseña2.getText().toString()))
                     {
-
-                     new insertarDatos().execute("http://192.168.0.17/vitalapp/ingresarUsuario.php?identificacion="+campoId.getText().toString()
+                        System.out.println("inserta datos:");
+                        insertarDatos("http://192.168.0.17/vitalapp/ingresarUsuario.php?identificacion="+campoId.getText().toString()
                             +"&nombre="+campoNombre.getText().toString()+"&fecha="+campofecha.getText().toString()
                             +"&tipo="+listaTipoSangre.getSelectedItem().toString()+"&eps="+listaEPS.getSelectedItem().toString()
                             +"&correo="+campoCorreo.getText().toString()+"&telefono="+campoTelefono.getText().toString()
@@ -138,7 +153,7 @@ public class RegistroUsuarioActivity  extends AppCompatActivity  {
                             +"&tel_contacto="+campoTelContacto.getText().toString()+"&user="+campoUsuario.getText().toString()
                             +"&pass="+campoContraseña.getText().toString()+"&condicion="+campoCondicion.getText().toString()
                             +"&enfermedad="+campoEnfermedad.getText().toString()+"&medicamentos="+campoMedicamentos.getText().toString()
-                            +"&rolUsuario="+id.toString());
+                            +"&rolUsuario="+id);
 
                     }
                     else{
@@ -202,29 +217,9 @@ public class RegistroUsuarioActivity  extends AppCompatActivity  {
     }
 
 
-    //metodo para insertar datos usuario
-    private class insertarDatos extends AsyncTask<String, Void,String>{
+    // metodo para llamar la url de conexion
 
-        @Override
-        protected String doInBackground(String... urls) {
-            try{
-                return downloadUrl(urls[0]);
-            }catch (IOException e){
-                return "Unable to retrieve web page. URL may be invalid.";
-            }
-        }
-        protected void onPostExecute(String resultado){
-            Toast.makeText(getApplicationContext(),"El usuario se ha guardado correctamente",Toast.LENGTH_LONG).show();
-
-            Intent irMenu = new Intent(RegistroUsuarioActivity.this,LoginActivity.class);
-
-            startActivity(irMenu);
-        }
-    }
-
-// metodo para llamar la url de conexion
-
-    private String downloadUrl(String miurl) throws IOException{
+    /*private String downloadUrl(String miurl) throws IOException{
         InputStream inputStream=null;
 
         int len=500;
@@ -251,18 +246,83 @@ public class RegistroUsuarioActivity  extends AppCompatActivity  {
                 inputStream.close();
             }
         }
-    }
+    }*/
 
-    //lee el inputstream y lo convierte en un string
 
-    private String readIt(InputStream inputStream, int len)
+    //metodo para insertar datos usuario
+    /*private class insertarDatos extends AsyncTask<String, Void,String>{
+
+        @Override
+        protected String doInBackground(String... urls) {
+            try{
+                System.out.println("url ok:"+urls[0]);
+                return downloadUrl(urls[0]);
+
+
+            }catch (IOException e){
+                System.out.println("url invalida:");
+                return "Unable to retrieve web page. URL may be invalid.";
+
+            }
+        }
+        /*protected void onPostExecute(String resultado){
+            Toast.makeText(getApplicationContext(),"El usuario se ha guardado correctamente",Toast.LENGTH_LONG).show();
+
+            Intent irMenu = new Intent(RegistroUsuarioActivity.this,LoginActivity.class);
+            System.out.println("guardo:");
+
+            startActivity(irMenu);
+        }
+    } */
+
+
+
+//lee el inputstream y lo convierte en un string
+
+    /*private String readIt(InputStream inputStream, int len)
             throws IOException, UnsupportedEncodingException{
         Reader leer=null;
         leer=new InputStreamReader(inputStream, "UTF-8");
         char[] buffer=new char[len];
         leer.read(buffer);
         return new String(buffer);
-    }
+    }*/
+
+
+
+    private void insertarDatos(String URL) {
+
+            Log.i("url",""+URL);
+
+            RequestQueue queue = Volley.newRequestQueue(this);
+            StringRequest stringRequest =  new StringRequest(Request.Method.GET, URL,  new Response.Listener<String>(){
+                @Override
+                public void onResponse(String response) {
+                    System.out.println("entra a consulta");
+                    try {
+                        jsonArray = new JSONArray(response);
+                        Toast.makeText(getApplicationContext(),"El usuario no existe en la base de datos",Toast.LENGTH_LONG).show();
+
+                    } catch (JSONException e) {
+                        e.printStackTrace();
+                        Toast.makeText(getApplicationContext(),"el registro se ha creado en la Base de Datos",Toast.LENGTH_SHORT).show();
+                        Intent irMenu = new Intent(RegistroUsuarioActivity.this,LoginActivity.class);
+                        startActivity(irMenu);
+
+                    }
+
+
+                }
+            }, new Response.ErrorListener() {
+                @Override
+                public void onErrorResponse(VolleyError error) {
+
+                }});
+            queue.add(stringRequest);
+        }
+
 
 
 }
+
+

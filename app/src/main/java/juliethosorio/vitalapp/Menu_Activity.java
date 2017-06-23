@@ -60,7 +60,7 @@ public class Menu_Activity extends AppCompatActivity implements NavigationView.O
 
     MenuFragment menuFragment;
     Historial_IncidenciasFragment miHistorial;
-    JSONArray jsonArray;
+    JSONArray jsonArray,jsonArrayQR;
 
 
     public final static int WHITE = 0xFFFFFFFF;
@@ -242,7 +242,7 @@ public class Menu_Activity extends AppCompatActivity implements NavigationView.O
 
 // metodo para llamar la url de conexion
 
-    private String downloadUrl(String miurl) throws IOException {
+    /*private String downloadUrl(String miurl) throws IOException {
         InputStream inputStream=null;
 
         int len=500;
@@ -269,7 +269,7 @@ public class Menu_Activity extends AppCompatActivity implements NavigationView.O
                 inputStream.close();
             }
         }
-    }
+    }*/
 
     public void read() {
         IntentIntegrator integrator = new IntentIntegrator(this);
@@ -299,7 +299,7 @@ public class Menu_Activity extends AppCompatActivity implements NavigationView.O
                 String idUR=(usuarioVO.getIdentificacion());
                 System.out.println("usuario reporta: "+idUR);
 
-                ConsultaUL("http://192.168.0.11/vitalapp/incidente.php?user="+idUL+"&userReport="+idUR);
+                ConsultaUL("http://192.168.0.17/vitalapp/incidente.php?user="+idUL+"&userReport="+idUR);
 
                 showDialog(scanResult.getContents());
             }else{
@@ -338,7 +338,7 @@ public class Menu_Activity extends AppCompatActivity implements NavigationView.O
             System.out.println("Este es el archivo bitmap "+bitmap+" Y este el idUsusarioQR "+idUsuarioQR);
             saveImage(bitmap);
 
-            new insertarCodigoQR().execute("http://192.168.0.17/vitalapp/ingresarQR.php?identificacion="+idUsuarioQR+"&imagenQR="+bitmap);
+            insertarCodigoQR("http://192.168.0.17/vitalapp/ingresarQR.php?identificacion="+idUsuarioQR+"&imagenQR="+bitmap);
 
         } catch (WriterException e) {
             e.printStackTrace();
@@ -409,15 +409,32 @@ public class Menu_Activity extends AppCompatActivity implements NavigationView.O
     }
 
     //metodo para consultar datos usuario
-    private class insertarCodigoQR extends AsyncTask<String, Void,String> {
 
-        @Override
-        protected String doInBackground(String... urls) {
-            try{
-                return downloadUrl(urls[0]);
-            }catch (IOException e){
-                return "Unable to retrieve web page. URL may be invalid.";
-            }
+    private void insertarCodigoQR(String URLQR) {
+
+            Log.i("url",""+URLQR);
+
+            RequestQueue queue = Volley.newRequestQueue(this);
+            StringRequest stringRequest =  new StringRequest(Request.Method.GET, URLQR,  new Response.Listener<String>(){
+                @Override
+                public void onResponse(String response) {
+
+                    try {
+                        jsonArrayQR = new JSONArray(response);
+                        Toast.makeText(getApplicationContext(),"El QR ya existe en la base de datos",Toast.LENGTH_LONG).show();
+
+                    } catch (JSONException e) {
+                        e.printStackTrace();
+                        Toast.makeText(getApplicationContext(),"El QR se ha guardado correctamente",Toast.LENGTH_LONG).show();
+
+                    }
+                }
+            }, new Response.ErrorListener() {
+                @Override
+                public void onErrorResponse(VolleyError error) {
+
+                }});
+            queue.add(stringRequest);
         }
        // protected void onPostExecute(String resultado){
          //   JSONArray jsonArray=null;
@@ -451,18 +468,18 @@ public class Menu_Activity extends AppCompatActivity implements NavigationView.O
               //  e.printStackTrace();
      //       }
        // }
-    }
+    //}
 
     //lee el inputstream y lo convierte en un string
 
-    private String readIt(InputStream inputStream, int len)
+    /*private String readIt(InputStream inputStream, int len)
             throws IOException, UnsupportedEncodingException {
         Reader leer=null;
         leer=new InputStreamReader(inputStream, "UTF-8");
         char[] buffer=new char[len];
         leer.read(buffer);
         return new String(buffer);
-    }
+    }*/
 
 
     private void ConsultaUL(String URL) {
@@ -478,10 +495,11 @@ public class Menu_Activity extends AppCompatActivity implements NavigationView.O
                     jsonArray = new JSONArray(response);
                     String idUI = jsonArray.getString(0);
                     System.out.println("usuario Interno: "+idUI);
+                    Toast.makeText(getApplicationContext(),"El Incidente se ha guardado correctamente",Toast.LENGTH_LONG).show();
                     //String rolGrupo = jsonArray.getString(2);
                 } catch (JSONException e) {
                     e.printStackTrace();
-                    Toast.makeText(getApplicationContext(),"El usuario no existe en la base de datos",Toast.LENGTH_LONG).show();
+                    Toast.makeText(getApplicationContext(),"El Incidente No se ha guardado",Toast.LENGTH_LONG).show();
                 }
 
 
