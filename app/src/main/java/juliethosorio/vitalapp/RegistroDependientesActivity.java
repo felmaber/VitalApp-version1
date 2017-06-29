@@ -47,13 +47,13 @@ import java.util.Calendar;
 public class RegistroDependientesActivity extends AppCompatActivity {
     JSONArray jsonArray;
     private int año,mes,dia;
-    private EditText campofecha,campoCondicion,campoEnfermedad,campoMedicamentos;
-    private Button btnFecha,Registrar;
+    private EditText campofechaD,campoCondicionD,campoEnfermedadD,campoMedicamentosD;
+    private Button btnFechaD,RegistrarD;
     private  static final int dialogo=0;
     private static DatePickerDialog.OnDateSetListener selectorFecha;
-    private CheckBox opcional;
-    private GridLayout condicionMedica;
-    private Spinner listaTipoSangre, listaEPS;
+    //private CheckBox opcional;
+    //private GridLayout condicionMedica;
+    private Spinner listaTipoSangreD, listaEPSD;
     private String idUND;
     private String rolUND;
     private String NomGrupo;
@@ -62,7 +62,7 @@ public class RegistroDependientesActivity extends AppCompatActivity {
     private String rolGrupoD;
     private String nombreUND, telUND,correUND;
 
-    private EditText campoId,campoNombre,correo,direccion,telefono;
+    private EditText campoIdD,campoNombreD,correoD,direccionD,telefonoD;
 
 
 
@@ -73,15 +73,15 @@ public class RegistroDependientesActivity extends AppCompatActivity {
         Toolbar toolbar = (Toolbar) findViewById(R.id.toolbar);
         setSupportActionBar(toolbar);
 
-        campoId=(EditText)findViewById(R.id.campoId);
-        campoNombre=(EditText)findViewById(R.id.campoNombres);
-        correo=(EditText)findViewById(R.id.campoCorreo);
-        direccion=(EditText)findViewById(R.id.campodireccion);
-        telefono=(EditText)findViewById(R.id.campotelefono);
+        campoIdD=(EditText)findViewById(R.id.campoIdD);
+        campoNombreD=(EditText)findViewById(R.id.campoNombresD);
+        correoD=(EditText)findViewById(R.id.campoCorreoD);
+        direccionD=(EditText)findViewById(R.id.campodireccionD);
+        telefonoD=(EditText)findViewById(R.id.campotelefonoD);
 
-        campoCondicion=(EditText)findViewById(R.id.campoCondicion);
-        campoEnfermedad=(EditText)findViewById(R.id.campoEnfermedad);
-        campoMedicamentos=(EditText)findViewById(R.id.campoMedicamentos);
+        campoCondicionD=(EditText)findViewById(R.id.campoCondicionD);
+        campoEnfermedadD=(EditText)findViewById(R.id.campoEnfermedadD);
+        campoMedicamentosD=(EditText)findViewById(R.id.campoMedicamentosD);
 
         UsuarioVO usuarioVODep= (UsuarioVO)getIntent().getSerializableExtra("usuario");
         idUND=(usuarioVODep.getIdentificacion());
@@ -97,13 +97,13 @@ public class RegistroDependientesActivity extends AppCompatActivity {
 
 
 
-        Registrar=(Button)findViewById(R.id.btnRegistrar);
+        RegistrarD=(Button)findViewById(R.id.btnRegistrar);
 
-        listaTipoSangre=(Spinner)findViewById(R.id.campotipoSangre);
-        listaEPS=(Spinner)findViewById(R.id.cbEps);
+        listaTipoSangreD=(Spinner)findViewById(R.id.campotipoSangreD);
+        listaEPSD=(Spinner)findViewById(R.id.cbEpsD);
 
-        campofecha=(EditText)findViewById(R.id.campoFechaNacimiento);
-        btnFecha=(Button)findViewById(R.id.btnfecha);
+        campofechaD=(EditText)findViewById(R.id.campoFechaNacimientoD);
+        btnFechaD=(Button)findViewById(R.id.btnfechaD);
         Calendar calendario=Calendar.getInstance();
         año=calendario.get(Calendar.YEAR);
         mes=calendario.get(Calendar.MONTH)+1;
@@ -121,47 +121,48 @@ public class RegistroDependientesActivity extends AppCompatActivity {
             }
         };
 
-        opcional=(CheckBox)findViewById(R.id.Condicion);
-        condicionMedica=(GridLayout)findViewById(R.id.GridcondicionMedica);
+        //opcional=(CheckBox)findViewById(R.id.Condicion);
+        //condicionMedica=(GridLayout)findViewById(R.id.GridcondicionMedica);
 
         //activar el btnAtras en el actionbar
-        getSupportActionBar().setDisplayHomeAsUpEnabled(true);
+        //getSupportActionBar().setDisplayHomeAsUpEnabled(true);
 
         // lista tipo de sangre
         ArrayAdapter<CharSequence> adaptadorTipoSangre;
 
         adaptadorTipoSangre=ArrayAdapter.createFromResource(this,R.array.tipoSangre,android.R.layout.simple_spinner_item);
-        listaTipoSangre.setAdapter(adaptadorTipoSangre);
+        listaTipoSangreD.setAdapter(adaptadorTipoSangre);
 
         //lista Eps
         ArrayAdapter<CharSequence> adaptadorEPS;
 
         adaptadorEPS=ArrayAdapter.createFromResource(this,R.array.eps,android.R.layout.simple_spinner_item);
-        listaEPS.setAdapter(adaptadorEPS);
+        listaEPSD.setAdapter(adaptadorEPS);
 
         //accion boton guardar registro
-        Registrar.setOnClickListener(new View.OnClickListener() {
+        RegistrarD.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
 
-                    insertarDatosPedentiente("http://192.168.0.17/vitalapp/insertarDependiente.php?identificacion="+campoId.getText().toString()
-                                    +"&nombre="+campoNombre.getText().toString()+"&fecha="+campofecha.getText().toString()
-                                    +"&tipo="+listaTipoSangre.getSelectedItem().toString()+"&eps="+listaEPS.getSelectedItem().toString()
-                                    +"&correo="+correo.getText().toString()+"&direccion="+direccion.getText().toString()
-                                    +"&telefono="+telefono.getText().toString()
-                                    +"&tipo="+listaTipoSangre.getSelectedItem().toString()
-                                    +"&eps="+listaEPS.getSelectedItem().toString()
-                                    +"&contacto="+nombreUND
-                                    +"&tel_contacto="+telUND
-                                    +"&condicion="+campoCondicion.getText().toString()
-                                    +"&enfermedad="+campoEnfermedad.getText().toString()
-                                    +"&medicamentos="+campoMedicamentos.getText().toString()
-                                    +"&rolUsuario="+rolUND
-                                    +"&idUND="+idUND
-                                    +"&NomGrupo="+NomGrupo
-                                    +"&idGrupo="+idGrupo
-                                    +"&rolGrupoD="+rolGrupoD
-                                    +"&rolGrupoND="+rolGrupoND);
+                    insertarDatosPedentiente("http://192.168.50.103/vitalapp/insertarDependiente.php?identificacion="+campoIdD.getText().toString()
+                                    +"&nombre="+campoNombreD.getText().toString()+"&fecha="+campofechaD.getText().toString()
+                                    +"&tipo="+listaTipoSangreD.getSelectedItem().toString()+"&eps="+listaEPSD.getSelectedItem().toString()
+                                    +"&correo="+correoD.getText().toString()+"&direccion="+direccionD.getText().toString()
+                                    +"&telefono="+telefonoD.getText().toString()
+                                    +"&tipo="+listaTipoSangreD.getSelectedItem().toString()
+                                    +"&eps="+listaEPSD.getSelectedItem().toString()
+                                    +"&contacto="+nombreUND.toString()
+                                    +"&tel_contacto="+telUND.toString()
+                                    +"&condicion="+campoCondicionD.getText().toString()
+                                    +"&enfermedad="+campoEnfermedadD.getText().toString()
+                                    +"&medicamentos="+campoMedicamentosD.getText().toString()
+                                    +"&rolUsuario="+rolUND.toString()
+                                    +"&idUND="+idUND.toString()
+                                    +"&NomGrupo="+NomGrupo.toString()
+                                    +"&idGrupo="+idGrupo.toString()
+                                    +"&rolGrupoD="+rolGrupoD.toString()
+                                    +"&rolGrupoND="+rolGrupoND.toString()
+                            );
                 }
         });
 
@@ -183,7 +184,7 @@ public class RegistroDependientesActivity extends AppCompatActivity {
     }
 
     public void mostrarFecha(){
-        campofecha.setText(año+"/"+(mes+1)+"/"+dia);
+        campofechaD.setText(año+"/"+(mes+1)+"/"+dia);
     }
 
     public boolean onCreateOptionsMenu(Menu menu){
@@ -210,14 +211,14 @@ public class RegistroDependientesActivity extends AppCompatActivity {
 
 //metodo para habilitar las condiciones medicas
 
-    public void mostrarFormMedico(View view){
+    /*public void mostrarFormMedico(View view){
         if (opcional.isChecked()){
             condicionMedica.setVisibility(View.VISIBLE);
         }
         else{
             condicionMedica.setVisibility(View.GONE);
         }
-    }
+    }*/
 
     //metodo para insertar datos dependiente
     private void insertarDatosPedentiente(String URL) {
@@ -247,10 +248,6 @@ public class RegistroDependientesActivity extends AppCompatActivity {
             }});
         queue.add(stringRequest);
     }
-
-
-
-
 
 // metodo para llamar la url de conexion
 
@@ -287,7 +284,7 @@ public class RegistroDependientesActivity extends AppCompatActivity {
 
     /*private String readIt(InputStream inputStream, int len)
             throws IOException, UnsupportedEncodingException {
-        Reader leer=null;
+        Reader leer;
         leer=new InputStreamReader(inputStream, "UTF-8");
         char[] buffer=new char[len];
         leer.read(buffer);

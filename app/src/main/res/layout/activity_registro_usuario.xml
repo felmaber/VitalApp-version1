@@ -69,8 +69,7 @@
                     android:layout_height="30dp"
                     android:drawableBottom="@drawable/calendario"
                     android:background="@null"
-                    android:layout_gravity="center"
-                    android:onClick="mostrarCalendario"/>
+                    android:layout_gravity="center"/>
              </LinearLayout>
 
         <LinearLayout
@@ -204,8 +203,7 @@
                 android:background="@color/colorPrimary"
                 android:textColor="#FFFFFF"
                 android:text="guardar"
-                android:layout_marginTop="20dp"
-                android:onClick="onClick"/>
+                android:layout_marginTop="20dp"/>
 
         </LinearLayout>
     </ScrollView>

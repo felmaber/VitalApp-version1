@@ -5,6 +5,7 @@ import android.content.res.Resources;
 import android.os.Bundle;
 import android.support.design.widget.FloatingActionButton;
 import android.support.design.widget.Snackbar;
+import android.support.v7.app.AlertDialog;
 import android.support.v7.app.AppCompatActivity;
 import android.util.Log;
 import android.view.View;
@@ -18,6 +19,8 @@ import com.android.volley.Response;
 import com.android.volley.toolbox.StringRequest;
 import com.android.volley.toolbox.Volley;
 import com.android.volley.VolleyError;
+import com.google.zxing.integration.android.IntentIntegrator;
+import com.google.zxing.integration.android.IntentResult;
 
 import org.json.JSONArray;
 import org.json.JSONException;
@@ -54,6 +57,7 @@ public class LoginActivity extends AppCompatActivity {
             public void onClick(View view) {
                 Snackbar.make(view, "Replace with your own action", Snackbar.LENGTH_LONG)
                         .setAction("Action", null).show();
+                read();
             }
         });
 
@@ -74,7 +78,7 @@ public class LoginActivity extends AppCompatActivity {
                     Toast.makeText(getApplicationContext(),"Ingrese Usuario y Contraseña",Toast.LENGTH_SHORT).show();
                 }
                 else{
-                ConsultaPass("http://192.168.0.17/vitalapp/login.php?user="+txtUsuario.getText().toString());
+                ConsultaPass("http://192.168.50.103/vitalapp/login.php?user="+txtUsuario.getText().toString());
                 }
                 break;
         }
@@ -142,6 +146,46 @@ public class LoginActivity extends AppCompatActivity {
         queue.add(stringRequest);
     }
 
+    public void read() {
+        IntentIntegrator integrator = new IntentIntegrator(this);
+
+        integrator.addExtra("SCAN_WIDTH", 800);
+        integrator.addExtra("SCAN_HEIGHT", 800);
+        integrator.addExtra("PROMPT_MESSAGE", "Busque un código para escanear");
+
+        //integrator.initiateScan(IntentIntegrator.QR_CODE_TYPES);
+        integrator.initiateScan();
+    }
+
+    public void onActivityResult(int requestCode, int resultCode, Intent intent) {
+        IntentResult scanResult = IntentIntegrator.parseActivityResult(requestCode, resultCode, intent);
+        String[] contenidoQR;
+        String ExpReg = "[:;]";
+        if (scanResult != null) {
+
+            System.out.println("Información encontrada");
+            contenidoQR = scanResult.getContents().split(ExpReg);
+            if("MECARD".equals(contenidoQR[0].trim())){
+                for(int i=1;i<contenidoQR.length;i++){
+                    System.out.println(contenidoQR[i]);
+                }
+                System.out.println(scanResult.getFormatName());
+                showDialog(scanResult.getContents());
+            }else{
+                Toast.makeText(getApplicationContext(),"El codigo no es valido para VitalAPP",Toast.LENGTH_LONG).show();
+            }
+
+        }
+
+    }
+
+    public void showDialog(String message) {
+        AlertDialog.Builder builder = new AlertDialog.Builder(this);
+        builder.setTitle(R.string.scanning_content);
+        builder.setMessage(message);
+        builder.setPositiveButton(android.R.string.ok, null);
+        builder.show();
+    }
 
 
 }

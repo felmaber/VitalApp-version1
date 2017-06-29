@@ -299,7 +299,7 @@ public class Menu_Activity extends AppCompatActivity implements NavigationView.O
                 String idUR=(usuarioVO.getIdentificacion());
                 System.out.println("usuario reporta: "+idUR);
 
-                ConsultaUL("http://192.168.0.17/vitalapp/incidente.php?user="+idUL+"&userReport="+idUR);
+                ConsultaUL("http://192.168.50.103/vitalapp/incidente.php?user="+idUL+"&userReport="+idUR);
 
                 showDialog(scanResult.getContents());
             }else{
@@ -338,7 +338,7 @@ public class Menu_Activity extends AppCompatActivity implements NavigationView.O
             System.out.println("Este es el archivo bitmap "+bitmap+" Y este el idUsusarioQR "+idUsuarioQR);
             saveImage(bitmap);
 
-            insertarCodigoQR("http://192.168.0.17/vitalapp/ingresarQR.php?identificacion="+idUsuarioQR+"&imagenQR="+bitmap);
+            insertarCodigoQR("http://192.168.50.103/vitalapp/ingresarQR.php?identificacion="+idUsuarioQR+"&imagenQR="+bitmap);
 
         } catch (WriterException e) {
             e.printStackTrace();

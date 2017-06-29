@@ -44,13 +44,13 @@
                 android:textStyle="bold"/>
 
             <EditText
-                android:id="@+id/campoId"
+                android:id="@+id/campoIdD"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
                 android:hint="Identificacion"/>
 
             <EditText
-                android:id="@+id/campoNombres"
+                android:id="@+id/campoNombresD"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
                 android:hint="Nombre Completo"/>
@@ -61,13 +61,13 @@
                 android:orientation="horizontal">
 
                 <EditText
-                    android:id="@+id/campoFechaNacimiento"
+                    android:id="@+id/campoFechaNacimientoD"
                     android:layout_width="200dp"
                     android:layout_height="wrap_content"
                     android:hint="Fecha de Nacimiento"
                     android:inputType="date"/>
                 <Button
-                    android:id="@+id/btnfecha"
+                    android:id="@+id/btnfechaD"
                     android:layout_width="40dp"
                     android:layout_height="30dp"
                     android:drawableBottom="@drawable/calendario"
@@ -82,14 +82,14 @@
                 android:orientation="vertical">
 
                 <Spinner
-                    android:id="@+id/campotipoSangre"
+                    android:id="@+id/campotipoSangreD"
                     android:layout_width="match_parent"
                     android:layout_marginTop="10dp"
                     android:layout_height="wrap_content">
                 </Spinner>
 
                 <Spinner
-                    android:id="@+id/cbEps"
+                    android:id="@+id/cbEpsD"
                     android:layout_width="match_parent"
                     android:layout_marginTop="10dp"
                     android:layout_height="wrap_content">
@@ -97,23 +97,23 @@
             </LinearLayout>
 
             <EditText
-                android:id="@+id/campoCorreo"
+                android:id="@+id/campoCorreoD"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
                 android:hint="Correo Electronico"/>
             <EditText
-                android:id="@+id/campodireccion"
+                android:id="@+id/campodireccionD"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
                 android:hint="Direccion"/>
             <EditText
-                android:id="@+id/campotelefono"
+                android:id="@+id/campotelefonoD"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
                 android:hint="Telefono"/>
 
             <GridLayout
-                android:id="@+id/GridcondicionMedica"
+                android:id="@+id/GridcondicionMedicaD"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
                 android:rowCount="2"
@@ -130,19 +130,19 @@
                     android:textSize="18sp"/>
 
                 <EditText
-                    android:id="@+id/campoCondicion"
+                    android:id="@+id/campoCondicionD"
                     android:layout_height="wrap_content"
                     android:layout_width="match_parent"
                     android:hint="Condicion especial"/>
 
                 <EditText
-                    android:id="@+id/campoEnfermedad"
+                    android:id="@+id/campoEnfermedadD"
                     android:layout_height="wrap_content"
                     android:layout_width="match_parent"
                     android:hint="Enfermedad Critica"/>
 
                 <EditText
-                    android:id="@+id/campoMedicamentos"
+                    android:id="@+id/campoMedicamentosD"
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
                     android:hint="Medicamentos referentes a la enfermedad"
@@ -150,7 +150,7 @@
                     android:ems="10"
                     />
                 <GridLayout
-                    android:id="@+id/GridAgregar"
+                    android:id="@+id/GridAgregarD"
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
                     android:rowCount="2"
@@ -159,13 +159,13 @@
                     android:layout_marginTop="40dp">
 
 
-                    <android.support.v7.widget.RecyclerView
-                        android:id="@+id/RListaCondiciones"
+                    <!--<android.support.v7.widget.RecyclerView
+                        android:id="@+id/RListaCondicionesD"
                         android:layout_width="match_parent"
                         android:layout_height="wrap_content"
                         android:layout_weight="0.41"
                         android:visibility="gone"
-                        android:layout_marginBottom="20dp"/>
+                        android:layout_marginBottom="20dp"/>-->
 
 
                 </GridLayout>

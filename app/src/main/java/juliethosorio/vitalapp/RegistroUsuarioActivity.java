@@ -1,15 +1,11 @@
 package juliethosorio.vitalapp;
 
 import android.app.DatePickerDialog;
-import android.app.Dialog;
 import android.content.Intent;
 import android.net.Uri;
 import android.os.AsyncTask;
 import android.os.Bundle;
 import android.support.v7.app.AppCompatActivity;
-import android.support.v7.widget.LinearLayoutManager;
-import android.support.v7.widget.RecyclerView;
-import android.text.Editable;
 import android.util.Log;
 import android.view.Menu;
 import android.view.MenuItem;
@@ -41,13 +37,10 @@ import java.io.IOException;
 import java.io.InputStream;
 import java.io.InputStreamReader;
 import java.io.Reader;
-import java.io.UnsupportedEncodingException;
 import java.net.HttpURLConnection;
 import java.net.URL;
-import java.util.ArrayList;
 import java.util.Calendar;
 
-import static juliethosorio.vitalapp.R.id.campotipoSangre;
 
 /**
  * Created by ljoso on 18/05/2017.
@@ -60,23 +53,21 @@ public class RegistroUsuarioActivity  extends AppCompatActivity  {
     private EditText campofecha, campoId,campoNombre,campoCorreo,campoTelefono;
     private EditText campoDireccion,campoNombreContacto,campoTelContacto,campoUsuario,campoContraseña,campoContraseña2;
     private EditText campoCondicion,campoEnfermedad,campoMedicamentos;
-    private Button btnFecha,btnAgregarCondicion,btnGuardar,btnsalir;
-    private  static final int dialogo=0;
-    private static DatePickerDialog.OnDateSetListener selectorFecha;
+    private Button btnFecha;
+    public Button btnAgregarCondicion;
+    private Button btnGuardar;
+    public Button btnsalir;
     private CheckBox opcional;
     private GridLayout condicionMedica;
-    private Spinner listaTipoSangre, listaEPS;
-    //private RecyclerView recyclerView;
-
-
-
-   // ArrayList<ListaCondicion> ArrayCondicion;
-    private int campotipoSangre;
+    private Spinner listaTipoSangre;
+    private Spinner listaEPS;
+    //private int campotipoSangre;
 
     protected void onCreate(Bundle savedInstanceState)
         {
             super.onCreate(savedInstanceState);
             setContentView(R.layout.activity_registro_usuario);
+
             campoId= (EditText) findViewById(R.id.campoId);
             campoNombre= (EditText) findViewById(R.id.campoNombres);
             campoCorreo=(EditText)findViewById(R.id.campoCorreo);
@@ -89,7 +80,6 @@ public class RegistroUsuarioActivity  extends AppCompatActivity  {
             campoContraseña2=(EditText)findViewById(R.id.txtConfirmarContraseña);
             id="NO DEPENDIENTE";
 
-
             campoCondicion=(EditText)findViewById(R.id.campoCondicion);
             campoEnfermedad=(EditText)findViewById(R.id.campoEnfermedad);
             campoMedicamentos=(EditText)findViewById(R.id.campoMedicamentos);
@@ -101,28 +91,12 @@ public class RegistroUsuarioActivity  extends AppCompatActivity  {
 
             campofecha=(EditText)findViewById(R.id.campoFechaNacimiento);
             btnFecha=(Button)findViewById(R.id.btnfecha);
-            Calendar calendario=Calendar.getInstance();
-            año=calendario.get(Calendar.YEAR);
-            mes=calendario.get(Calendar.MONTH)+1;
-            dia=calendario.get(Calendar.DAY_OF_MONTH);
-            mostrarFecha();
-
-            //fecha seleccionada
-            selectorFecha=new DatePickerDialog.OnDateSetListener() {
-                @Override
-                public void onDateSet(DatePicker view, int year, int month, int dayOfMonth) {
-                    año= year;
-                    mes=month;
-                    dia=dayOfMonth;
-                    mostrarFecha();
-                }
-            };
 
             opcional=(CheckBox)findViewById(R.id.Condicion);
             condicionMedica=(GridLayout)findViewById(R.id.GridcondicionMedica);
 
             //activar el btnAtras en el actionbar
-            getSupportActionBar().setDisplayHomeAsUpEnabled(true);
+            //getSupportActionBar().setDisplayHomeAsUpEnabled(true);
 
             // lista tipo de sangre
             ArrayAdapter<CharSequence> adaptadorTipoSangre;
@@ -137,15 +111,40 @@ public class RegistroUsuarioActivity  extends AppCompatActivity  {
             listaEPS.setAdapter(adaptadorEPS);
 
 
+            //Acción de DatePickerDialog para las fechas
+            btnFecha.setOnClickListener(new View.OnClickListener() {
+
+                @Override
+                public void onClick(View v) {
+                    if (v == btnFecha) {
+
+                        // Get Current Date
+                        final Calendar c = Calendar.getInstance();
+                        año = c.get(Calendar.YEAR);
+                        mes = c.get(Calendar.MONTH);
+                        dia = c.get(Calendar.DAY_OF_MONTH);
+                        campofecha.setText(dia + "/" + (mes + 1) + "/" + año);
+                        System.out.print("ingresa metodo para cargar fecha: "+campofecha.getText().toString());
+                        DatePickerDialog datePickerDialog = new DatePickerDialog(RegistroUsuarioActivity.this, new DatePickerDialog.OnDateSetListener(){
+                            @Override
+                            public void onDateSet(DatePicker view, int year, int month, int dayOfMonth) {
+                                campofecha.setText(dayOfMonth + "/" + (month + 1) + "/" + year);
+                            }
+                        }, año, mes, dia);
+                        datePickerDialog.show();
+                    }
+
+                }
+            });
             //accion boton guardar registro
             btnGuardar.setOnClickListener(new View.OnClickListener() {
                 @Override
                 public void onClick(View v) {
-                    System.out.println("onclik:");
+
                     if (campoContraseña.getText().toString().equals(campoContraseña2.getText().toString()))
                     {
                         System.out.println("inserta datos:");
-                        insertarDatos("http://192.168.0.17/vitalapp/ingresarUsuario.php?identificacion="+campoId.getText().toString()
+                        insertarDatos("http://192.168.50.103/vitalapp/ingresarUsuario.php?identificacion="+campoId.getText().toString()
                             +"&nombre="+campoNombre.getText().toString()+"&fecha="+campofecha.getText().toString()
                             +"&tipo="+listaTipoSangre.getSelectedItem().toString()+"&eps="+listaEPS.getSelectedItem().toString()
                             +"&correo="+campoCorreo.getText().toString()+"&telefono="+campoTelefono.getText().toString()
@@ -164,24 +163,6 @@ public class RegistroUsuarioActivity  extends AppCompatActivity  {
             });
 
          }
-
-    @Override
-    protected Dialog onCreateDialog(int id) {
-        switch (id){
-            case 0:
-                return new DatePickerDialog(this,selectorFecha, año, mes,dia);
-        }
-        return null;
-    }
-
-    public void mostrarCalendario(View view){
-        showDialog(dialogo);
-
-    }
-
-    public void mostrarFecha(){
-        campofecha.setText(año+"/"+(mes+1)+"/"+dia);
-    }
 
     public boolean onCreateOptionsMenu(Menu menu){
         getMenuInflater().inflate(R.menu.menu, menu);
@@ -277,7 +258,7 @@ public class RegistroUsuarioActivity  extends AppCompatActivity  {
 
 
 
-//lee el inputstream y lo convierte en un string
+    //lee el inputstream y lo convierte en un string
 
     /*private String readIt(InputStream inputStream, int len)
             throws IOException, UnsupportedEncodingException{
